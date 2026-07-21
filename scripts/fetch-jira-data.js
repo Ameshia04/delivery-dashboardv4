@@ -1,4 +1,4 @@
-=/**
+/**
  * fetch-jira-data.js  (v2)
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
  *
