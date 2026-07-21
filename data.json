@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T15:54:50.287Z",
+  "generatedAt": "2026-07-21T16:22:57.043Z",
   "windowDays": 56,
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
@@ -229,6 +229,10 @@
         {
           "recordedAt": "2026-07-21T15:53:49.299Z",
           "activeEpics": 5
+        },
+        {
+          "recordedAt": "2026-07-21T16:21:43.921Z",
+          "activeEpics": 5
         }
       ],
       "focusIntegrityWeekly": [
@@ -255,7 +259,7 @@
       "contextSwitchFlagged": [],
       "contextSwitchThreshold": 3,
       "sle85Days": 56.8,
-      "thisWeekSleAdherencePct": 88.9,
+      "thisWeekSleAdherencePct": 87.5,
       "riskStatus": "OK",
       "wipByStatus": {
         "Backlog": 49,
@@ -623,7 +627,7 @@
         "sampleSize": 74
       },
       "flowEfficiencyPct": 36.6,
-      "throughput7d": 10,
+      "throughput7d": 9,
       "throughputWindowTotal": 74,
       "throughputAvgPerWeek": 9.3,
       "qualityLoopbackRatePct": 39.2,
@@ -633,8 +637,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:53:49.299Z",
-          "weekEnd": "2026-06-02T15:53:49.299Z",
+          "weekStart": "2026-05-26T16:21:43.921Z",
+          "weekEnd": "2026-06-02T16:21:43.921Z",
           "throughput": 9,
           "cycleTimeAvg": 27.3,
           "leadTimeAvg": 63.1,
@@ -646,8 +650,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:53:49.299Z",
-          "weekEnd": "2026-06-09T15:53:49.299Z",
+          "weekStart": "2026-06-02T16:21:43.921Z",
+          "weekEnd": "2026-06-09T16:21:43.921Z",
           "throughput": 6,
           "cycleTimeAvg": 70.1,
           "leadTimeAvg": 169.3,
@@ -659,8 +663,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:53:49.299Z",
-          "weekEnd": "2026-06-16T15:53:49.299Z",
+          "weekStart": "2026-06-09T16:21:43.921Z",
+          "weekEnd": "2026-06-16T16:21:43.921Z",
           "throughput": 7,
           "cycleTimeAvg": 31.1,
           "leadTimeAvg": 109.9,
@@ -672,8 +676,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:53:49.299Z",
-          "weekEnd": "2026-06-23T15:53:49.299Z",
+          "weekStart": "2026-06-16T16:21:43.921Z",
+          "weekEnd": "2026-06-23T16:21:43.921Z",
           "throughput": 9,
           "cycleTimeAvg": 16,
           "leadTimeAvg": 63.7,
@@ -685,8 +689,8 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:53:49.299Z",
-          "weekEnd": "2026-06-30T15:53:49.299Z",
+          "weekStart": "2026-06-23T16:21:43.921Z",
+          "weekEnd": "2026-06-30T16:21:43.921Z",
           "throughput": 13,
           "cycleTimeAvg": 17.2,
           "leadTimeAvg": 101.2,
@@ -698,8 +702,8 @@
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:53:49.299Z",
-          "weekEnd": "2026-07-07T15:53:49.299Z",
+          "weekStart": "2026-06-30T16:21:43.921Z",
+          "weekEnd": "2026-07-07T16:21:43.921Z",
           "throughput": 10,
           "cycleTimeAvg": 111.8,
           "leadTimeAvg": 262.1,
@@ -711,29 +715,29 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:53:49.299Z",
-          "weekEnd": "2026-07-14T15:53:49.299Z",
-          "throughput": 10,
-          "cycleTimeAvg": 16.2,
-          "leadTimeAvg": 49.1,
-          "flowEfficiencyPct": 33,
-          "qualityLoopbackRatePct": 80,
+          "weekStart": "2026-07-07T16:21:43.921Z",
+          "weekEnd": "2026-07-14T16:21:43.921Z",
+          "throughput": 11,
+          "cycleTimeAvg": 15.3,
+          "leadTimeAvg": 45.3,
+          "flowEfficiencyPct": 33.8,
+          "qualityLoopbackRatePct": 72.7,
           "qualityLoopbackCount": 8,
-          "qualityLoopbackSampleSize": 10,
+          "qualityLoopbackSampleSize": 11,
           "aiLeverageRatePct": 0
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:53:49.299Z",
-          "weekEnd": "2026-07-21T15:53:49.299Z",
-          "throughput": 10,
-          "cycleTimeAvg": 36,
-          "leadTimeAvg": 95.9,
+          "weekStart": "2026-07-14T16:21:43.921Z",
+          "weekEnd": "2026-07-21T16:21:43.921Z",
+          "throughput": 9,
+          "cycleTimeAvg": 39.7,
+          "leadTimeAvg": 105.8,
           "flowEfficiencyPct": 37.5,
-          "qualityLoopbackRatePct": 20,
+          "qualityLoopbackRatePct": 22.2,
           "qualityLoopbackCount": 2,
-          "qualityLoopbackSampleSize": 10,
-          "aiLeverageRatePct": 40
+          "qualityLoopbackSampleSize": 9,
+          "aiLeverageRatePct": 44.4
         }
       ]
     },
@@ -963,6 +967,10 @@
         {
           "recordedAt": "2026-07-21T15:54:00.119Z",
           "activeEpics": 3
+        },
+        {
+          "recordedAt": "2026-07-21T16:21:55.604Z",
+          "activeEpics": 3
         }
       ],
       "focusIntegrityWeekly": [
@@ -988,7 +996,7 @@
       "contextSwitchThisWeekAvg": 1,
       "contextSwitchFlagged": [],
       "contextSwitchThreshold": 3,
-      "sle85Days": 27.2,
+      "sle85Days": 25.6,
       "thisWeekSleAdherencePct": 42.9,
       "riskStatus": "At Risk",
       "wipByStatus": {
@@ -1336,7 +1344,7 @@
         }
       ],
       "dependencyCount": 33,
-      "oldestWipAgeDays": 2071.7,
+      "oldestWipAgeDays": 2071.8,
       "agingWipCount": 96,
       "agingWipIssues": [
         {
@@ -1344,7 +1352,7 @@
           "summary": "Intacct - Improvements",
           "status": "In Progress",
           "type": "Epic",
-          "ageDays": 2071.7
+          "ageDays": 2071.8
         },
         {
           "key": "APCOM-68",
@@ -1358,7 +1366,7 @@
           "summary": "\"Enable Intacct Integration\" doesn't always add the generic integration",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 1249.8
+          "ageDays": 1249.9
         },
         {
           "key": "APCOM-31",
@@ -1377,7 +1385,7 @@
       ],
       "windowDays": 56,
       "cycleTimeDays": {
-        "avg": 16.1,
+        "avg": 15.7,
         "median": 11,
         "sampleSize": 86
       },
@@ -1386,7 +1394,7 @@
         "median": 18.7,
         "sampleSize": 89
       },
-      "flowEfficiencyPct": 22.9,
+      "flowEfficiencyPct": 22.3,
       "throughput7d": 7,
       "throughputWindowTotal": 89,
       "throughputAvgPerWeek": 11.1,
@@ -1397,8 +1405,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:00.119Z",
-          "weekEnd": "2026-06-02T15:54:00.119Z",
+          "weekStart": "2026-05-26T16:21:55.604Z",
+          "weekEnd": "2026-06-02T16:21:55.604Z",
           "throughput": 16,
           "cycleTimeAvg": 12.2,
           "leadTimeAvg": 118.7,
@@ -1410,8 +1418,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:00.119Z",
-          "weekEnd": "2026-06-09T15:54:00.119Z",
+          "weekStart": "2026-06-02T16:21:55.604Z",
+          "weekEnd": "2026-06-09T16:21:55.604Z",
           "throughput": 4,
           "cycleTimeAvg": 33.4,
           "leadTimeAvg": 41.6,
@@ -1423,8 +1431,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:00.119Z",
-          "weekEnd": "2026-06-16T15:54:00.119Z",
+          "weekStart": "2026-06-09T16:21:55.604Z",
+          "weekEnd": "2026-06-16T16:21:55.604Z",
           "throughput": 13,
           "cycleTimeAvg": 14.3,
           "leadTimeAvg": 190.6,
@@ -1436,38 +1444,38 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:00.119Z",
-          "weekEnd": "2026-06-23T15:54:00.119Z",
-          "throughput": 10,
-          "cycleTimeAvg": 12.6,
-          "leadTimeAvg": 26.4,
-          "flowEfficiencyPct": 47.7,
-          "qualityLoopbackRatePct": 20,
+          "weekStart": "2026-06-16T16:21:55.604Z",
+          "weekEnd": "2026-06-23T16:21:55.604Z",
+          "throughput": 13,
+          "cycleTimeAvg": 12.2,
+          "leadTimeAvg": 23.3,
+          "flowEfficiencyPct": 52.4,
+          "qualityLoopbackRatePct": 15.4,
           "qualityLoopbackCount": 2,
-          "qualityLoopbackSampleSize": 10,
+          "qualityLoopbackSampleSize": 13,
           "aiLeverageRatePct": 0
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:00.119Z",
-          "weekEnd": "2026-06-30T15:54:00.119Z",
-          "throughput": 25,
-          "cycleTimeAvg": 8.8,
-          "leadTimeAvg": 12,
-          "flowEfficiencyPct": 73.3,
-          "qualityLoopbackRatePct": 20,
+          "weekStart": "2026-06-23T16:21:55.604Z",
+          "weekEnd": "2026-06-30T16:21:55.604Z",
+          "throughput": 22,
+          "cycleTimeAvg": 8.5,
+          "leadTimeAvg": 11.8,
+          "flowEfficiencyPct": 72,
+          "qualityLoopbackRatePct": 22.7,
           "qualityLoopbackCount": 5,
-          "qualityLoopbackSampleSize": 25,
+          "qualityLoopbackSampleSize": 22,
           "aiLeverageRatePct": 0
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:00.119Z",
-          "weekEnd": "2026-07-07T15:54:00.119Z",
+          "weekStart": "2026-06-30T16:21:55.604Z",
+          "weekEnd": "2026-07-07T16:21:55.604Z",
           "throughput": 10,
-          "cycleTimeAvg": 19.3,
+          "cycleTimeAvg": 15.7,
           "leadTimeAvg": 70.1,
-          "flowEfficiencyPct": 27.5,
+          "flowEfficiencyPct": 22.4,
           "qualityLoopbackRatePct": 50,
           "qualityLoopbackCount": 5,
           "qualityLoopbackSampleSize": 10,
@@ -1475,8 +1483,8 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:00.119Z",
-          "weekEnd": "2026-07-14T15:54:00.119Z",
+          "weekStart": "2026-07-07T16:21:55.604Z",
+          "weekEnd": "2026-07-14T16:21:55.604Z",
           "throughput": 4,
           "cycleTimeAvg": 33.9,
           "leadTimeAvg": 37.1,
@@ -1488,8 +1496,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:00.119Z",
-          "weekEnd": "2026-07-21T15:54:00.119Z",
+          "weekStart": "2026-07-14T16:21:55.604Z",
+          "weekEnd": "2026-07-21T16:21:55.604Z",
           "throughput": 7,
           "cycleTimeAvg": 33.2,
           "leadTimeAvg": 42.8,
@@ -1564,6 +1572,10 @@
       "focusIntegrityHistory": [
         {
           "recordedAt": "2026-07-21T15:54:09.207Z",
+          "activeEpics": 3
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:07.253Z",
           "activeEpics": 3
         }
       ],
@@ -1718,7 +1730,7 @@
         }
       ],
       "dependencyCount": 11,
-      "oldestWipAgeDays": 740,
+      "oldestWipAgeDays": 740.1,
       "agingWipCount": 30,
       "agingWipIssues": [
         {
@@ -1726,7 +1738,7 @@
           "summary": "Scheduling",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 740
+          "ageDays": 740.1
         },
         {
           "key": "EMP-472",
@@ -1779,8 +1791,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:09.207Z",
-          "weekEnd": "2026-06-02T15:54:09.207Z",
+          "weekStart": "2026-05-26T16:22:07.253Z",
+          "weekEnd": "2026-06-02T16:22:07.253Z",
           "throughput": 9,
           "cycleTimeAvg": 9.5,
           "leadTimeAvg": 33.8,
@@ -1792,8 +1804,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:09.207Z",
-          "weekEnd": "2026-06-09T15:54:09.207Z",
+          "weekStart": "2026-06-02T16:22:07.253Z",
+          "weekEnd": "2026-06-09T16:22:07.253Z",
           "throughput": 4,
           "cycleTimeAvg": 11.8,
           "leadTimeAvg": 31.9,
@@ -1805,8 +1817,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:09.207Z",
-          "weekEnd": "2026-06-16T15:54:09.207Z",
+          "weekStart": "2026-06-09T16:22:07.253Z",
+          "weekEnd": "2026-06-16T16:22:07.253Z",
           "throughput": 11,
           "cycleTimeAvg": 14.1,
           "leadTimeAvg": 120.9,
@@ -1818,8 +1830,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:09.207Z",
-          "weekEnd": "2026-06-23T15:54:09.207Z",
+          "weekStart": "2026-06-16T16:22:07.253Z",
+          "weekEnd": "2026-06-23T16:22:07.253Z",
           "throughput": 12,
           "cycleTimeAvg": 10.9,
           "leadTimeAvg": 94.4,
@@ -1831,34 +1843,34 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:09.207Z",
-          "weekEnd": "2026-06-30T15:54:09.207Z",
-          "throughput": 14,
-          "cycleTimeAvg": 3.7,
-          "leadTimeAvg": 2.2,
-          "flowEfficiencyPct": 168.2,
-          "qualityLoopbackRatePct": 0,
-          "qualityLoopbackCount": 0,
-          "qualityLoopbackSampleSize": 14,
-          "aiLeverageRatePct": 78.6
+          "weekStart": "2026-06-23T16:22:07.253Z",
+          "weekEnd": "2026-06-30T16:22:07.253Z",
+          "throughput": 15,
+          "cycleTimeAvg": 4.5,
+          "leadTimeAvg": 9.8,
+          "flowEfficiencyPct": 45.9,
+          "qualityLoopbackRatePct": 6.7,
+          "qualityLoopbackCount": 1,
+          "qualityLoopbackSampleSize": 15,
+          "aiLeverageRatePct": 80
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:09.207Z",
-          "weekEnd": "2026-07-07T15:54:09.207Z",
-          "throughput": 2,
-          "cycleTimeAvg": 3.8,
-          "leadTimeAvg": 93.2,
-          "flowEfficiencyPct": 4.1,
-          "qualityLoopbackRatePct": 50,
-          "qualityLoopbackCount": 1,
-          "qualityLoopbackSampleSize": 2,
+          "weekStart": "2026-06-30T16:22:07.253Z",
+          "weekEnd": "2026-07-07T16:22:07.253Z",
+          "throughput": 1,
+          "cycleTimeAvg": 0.7,
+          "leadTimeAvg": 70.7,
+          "flowEfficiencyPct": 1,
+          "qualityLoopbackRatePct": 0,
+          "qualityLoopbackCount": 0,
+          "qualityLoopbackSampleSize": 1,
           "aiLeverageRatePct": 100
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:09.207Z",
-          "weekEnd": "2026-07-14T15:54:09.207Z",
+          "weekStart": "2026-07-07T16:22:07.253Z",
+          "weekEnd": "2026-07-14T16:22:07.253Z",
           "throughput": 3,
           "cycleTimeAvg": 3.9,
           "leadTimeAvg": 27.9,
@@ -1870,8 +1882,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:09.207Z",
-          "weekEnd": "2026-07-21T15:54:09.207Z",
+          "weekStart": "2026-07-14T16:22:07.253Z",
+          "weekEnd": "2026-07-21T16:22:07.253Z",
           "throughput": 8,
           "cycleTimeAvg": 52.7,
           "leadTimeAvg": 132.2,
@@ -2118,6 +2130,10 @@
         {
           "recordedAt": "2026-07-21T15:54:13.357Z",
           "activeEpics": 10
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:11.850Z",
+          "activeEpics": 10
         }
       ],
       "focusIntegrityWeekly": [
@@ -2137,10 +2153,10 @@
         null,
         2,
         2,
-        1.3,
-        1.7
+        1.7,
+        1.6
       ],
-      "contextSwitchThisWeekAvg": 1.7,
+      "contextSwitchThisWeekAvg": 1.6,
       "contextSwitchFlagged": [
         {
           "name": "Chance Naderi",
@@ -2163,8 +2179,8 @@
         "Ready for Development": 34,
         "In Development": 6,
         "Ready for Code Review": 0,
-        "In QA": 9,
-        "Acceptance": 4,
+        "In QA": 8,
+        "Acceptance": 5,
         "Done": 9,
         "Other": 21
       },
@@ -2787,7 +2803,7 @@
           "summary": "Total Compensation Class Update - Move income references to special types",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 1944
+          "ageDays": 1944.1
         },
         {
           "key": "CORE-167",
@@ -2808,7 +2824,7 @@
           "summary": "Capture and use a snapshot of employee rates in the batch",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 1525.7
+          "ageDays": 1525.8
         }
       ],
       "windowDays": 56,
@@ -2833,8 +2849,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:13.357Z",
-          "weekEnd": "2026-06-02T15:54:13.357Z",
+          "weekStart": "2026-05-26T16:22:11.850Z",
+          "weekEnd": "2026-06-02T16:22:11.850Z",
           "throughput": 5,
           "cycleTimeAvg": 27.5,
           "leadTimeAvg": 65,
@@ -2846,8 +2862,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:13.357Z",
-          "weekEnd": "2026-06-09T15:54:13.357Z",
+          "weekStart": "2026-06-02T16:22:11.850Z",
+          "weekEnd": "2026-06-09T16:22:11.850Z",
           "throughput": 11,
           "cycleTimeAvg": 14.4,
           "leadTimeAvg": 72.1,
@@ -2859,8 +2875,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:13.357Z",
-          "weekEnd": "2026-06-16T15:54:13.357Z",
+          "weekStart": "2026-06-09T16:22:11.850Z",
+          "weekEnd": "2026-06-16T16:22:11.850Z",
           "throughput": 27,
           "cycleTimeAvg": 21.7,
           "leadTimeAvg": 136.7,
@@ -2872,8 +2888,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:13.357Z",
-          "weekEnd": "2026-06-23T15:54:13.357Z",
+          "weekStart": "2026-06-16T16:22:11.850Z",
+          "weekEnd": "2026-06-23T16:22:11.850Z",
           "throughput": 20,
           "cycleTimeAvg": 10.8,
           "leadTimeAvg": 106,
@@ -2885,34 +2901,34 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:13.357Z",
-          "weekEnd": "2026-06-30T15:54:13.357Z",
-          "throughput": 23,
+          "weekStart": "2026-06-23T16:22:11.850Z",
+          "weekEnd": "2026-06-30T16:22:11.850Z",
+          "throughput": 24,
           "cycleTimeAvg": 16.4,
-          "leadTimeAvg": 343.6,
-          "flowEfficiencyPct": 4.8,
-          "qualityLoopbackRatePct": 21.7,
+          "leadTimeAvg": 360.7,
+          "flowEfficiencyPct": 4.5,
+          "qualityLoopbackRatePct": 20.8,
           "qualityLoopbackCount": 5,
-          "qualityLoopbackSampleSize": 23,
+          "qualityLoopbackSampleSize": 24,
           "aiLeverageRatePct": 0
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:13.357Z",
-          "weekEnd": "2026-07-07T15:54:13.357Z",
-          "throughput": 8,
+          "weekStart": "2026-06-30T16:22:11.850Z",
+          "weekEnd": "2026-07-07T16:22:11.850Z",
+          "throughput": 7,
           "cycleTimeAvg": 9.3,
-          "leadTimeAvg": 395.7,
-          "flowEfficiencyPct": 2.4,
-          "qualityLoopbackRatePct": 12.5,
+          "leadTimeAvg": 344.5,
+          "flowEfficiencyPct": 2.7,
+          "qualityLoopbackRatePct": 14.3,
           "qualityLoopbackCount": 1,
-          "qualityLoopbackSampleSize": 8,
+          "qualityLoopbackSampleSize": 7,
           "aiLeverageRatePct": 0
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:13.357Z",
-          "weekEnd": "2026-07-14T15:54:13.357Z",
+          "weekStart": "2026-07-07T16:22:11.850Z",
+          "weekEnd": "2026-07-14T16:22:11.850Z",
           "throughput": 13,
           "cycleTimeAvg": 19.4,
           "leadTimeAvg": 182.3,
@@ -2924,8 +2940,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:13.357Z",
-          "weekEnd": "2026-07-21T15:54:13.357Z",
+          "weekStart": "2026-07-14T16:22:11.850Z",
+          "weekEnd": "2026-07-21T16:22:11.850Z",
           "throughput": 6,
           "cycleTimeAvg": 17.3,
           "leadTimeAvg": 244.7,
@@ -3127,6 +3143,10 @@
         {
           "recordedAt": "2026-07-21T15:54:24.647Z",
           "activeEpics": 4
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:24.506Z",
+          "activeEpics": 4
         }
       ],
       "focusIntegrityWeekly": [
@@ -3156,8 +3176,8 @@
       "thisWeekSleAdherencePct": 94.4,
       "riskStatus": "OK",
       "wipByStatus": {
-        "Backlog": 7,
-        "To Do": 21,
+        "Backlog": 6,
+        "To Do": 22,
         "Ready for Development": 7,
         "In Development": 12,
         "Ready for Code Review": 4,
@@ -3330,7 +3350,7 @@
         }
       ],
       "dependencyCount": 16,
-      "oldestWipAgeDays": 740,
+      "oldestWipAgeDays": 740.1,
       "agingWipCount": 85,
       "agingWipIssues": [
         {
@@ -3338,14 +3358,14 @@
           "summary": "Mobile Redesign",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 740
+          "ageDays": 740.1
         },
         {
           "key": "MOBILE-198",
           "summary": "APS Tablet App Redesign",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 628.8
+          "ageDays": 628.9
         },
         {
           "key": "MOBILE-211",
@@ -3391,8 +3411,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:24.647Z",
-          "weekEnd": "2026-06-02T15:54:24.647Z",
+          "weekStart": "2026-05-26T16:22:24.506Z",
+          "weekEnd": "2026-06-02T16:22:24.506Z",
           "throughput": 9,
           "cycleTimeAvg": 16.2,
           "leadTimeAvg": 17.3,
@@ -3404,8 +3424,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:24.647Z",
-          "weekEnd": "2026-06-09T15:54:24.647Z",
+          "weekStart": "2026-06-02T16:22:24.506Z",
+          "weekEnd": "2026-06-09T16:22:24.506Z",
           "throughput": 4,
           "cycleTimeAvg": 14.7,
           "leadTimeAvg": 17.9,
@@ -3417,8 +3437,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:24.647Z",
-          "weekEnd": "2026-06-16T15:54:24.647Z",
+          "weekStart": "2026-06-09T16:22:24.506Z",
+          "weekEnd": "2026-06-16T16:22:24.506Z",
           "throughput": 15,
           "cycleTimeAvg": 13.4,
           "leadTimeAvg": 20.7,
@@ -3430,8 +3450,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:24.647Z",
-          "weekEnd": "2026-06-23T15:54:24.647Z",
+          "weekStart": "2026-06-16T16:22:24.506Z",
+          "weekEnd": "2026-06-23T16:22:24.506Z",
           "throughput": 5,
           "cycleTimeAvg": 3.2,
           "leadTimeAvg": 9.3,
@@ -3443,8 +3463,8 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:24.647Z",
-          "weekEnd": "2026-06-30T15:54:24.647Z",
+          "weekStart": "2026-06-23T16:22:24.506Z",
+          "weekEnd": "2026-06-30T16:22:24.506Z",
           "throughput": 7,
           "cycleTimeAvg": 8.7,
           "leadTimeAvg": 83.9,
@@ -3456,8 +3476,8 @@
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:24.647Z",
-          "weekEnd": "2026-07-07T15:54:24.647Z",
+          "weekStart": "2026-06-30T16:22:24.506Z",
+          "weekEnd": "2026-07-07T16:22:24.506Z",
           "throughput": 10,
           "cycleTimeAvg": 10.9,
           "leadTimeAvg": 33.2,
@@ -3469,8 +3489,8 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:24.647Z",
-          "weekEnd": "2026-07-14T15:54:24.647Z",
+          "weekStart": "2026-07-07T16:22:24.506Z",
+          "weekEnd": "2026-07-14T16:22:24.506Z",
           "throughput": 8,
           "cycleTimeAvg": 10.2,
           "leadTimeAvg": 47.2,
@@ -3482,8 +3502,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:24.647Z",
-          "weekEnd": "2026-07-21T15:54:24.647Z",
+          "weekStart": "2026-07-14T16:22:24.506Z",
+          "weekEnd": "2026-07-21T16:22:24.506Z",
           "throughput": 19,
           "cycleTimeAvg": 10.6,
           "leadTimeAvg": 27.4,
@@ -3712,6 +3732,10 @@
         {
           "recordedAt": "2026-07-21T15:54:31.593Z",
           "activeEpics": 0
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:33.374Z",
+          "activeEpics": 0
         }
       ],
       "focusIntegrityWeekly": [
@@ -3746,8 +3770,8 @@
         "Ready for Development": 27,
         "In Development": 13,
         "Ready for Code Review": 0,
-        "In QA": 4,
-        "Acceptance": 1,
+        "In QA": 3,
+        "Acceptance": 2,
         "Done": 11,
         "Other": 14
       },
@@ -3946,7 +3970,7 @@
       ],
       "dependencyCount": 19,
       "oldestWipAgeDays": 2651.8,
-      "agingWipCount": 172,
+      "agingWipCount": 173,
       "agingWipIssues": [
         {
           "key": "BOA-128",
@@ -3967,7 +3991,7 @@
           "summary": "Custom Garnishment Types",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 2510.8
+          "ageDays": 2510.9
         },
         {
           "key": "BOA-117",
@@ -4006,8 +4030,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:31.593Z",
-          "weekEnd": "2026-06-02T15:54:31.593Z",
+          "weekStart": "2026-05-26T16:22:33.374Z",
+          "weekEnd": "2026-06-02T16:22:33.374Z",
           "throughput": 9,
           "cycleTimeAvg": 86.8,
           "leadTimeAvg": 94.2,
@@ -4019,8 +4043,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:31.593Z",
-          "weekEnd": "2026-06-09T15:54:31.593Z",
+          "weekStart": "2026-06-02T16:22:33.374Z",
+          "weekEnd": "2026-06-09T16:22:33.374Z",
           "throughput": 10,
           "cycleTimeAvg": 10,
           "leadTimeAvg": 22.2,
@@ -4032,8 +4056,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:31.593Z",
-          "weekEnd": "2026-06-16T15:54:31.593Z",
+          "weekStart": "2026-06-09T16:22:33.374Z",
+          "weekEnd": "2026-06-16T16:22:33.374Z",
           "throughput": 13,
           "cycleTimeAvg": 16,
           "leadTimeAvg": 25.2,
@@ -4045,8 +4069,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:31.593Z",
-          "weekEnd": "2026-06-23T15:54:31.593Z",
+          "weekStart": "2026-06-16T16:22:33.374Z",
+          "weekEnd": "2026-06-23T16:22:33.374Z",
           "throughput": 12,
           "cycleTimeAvg": 4.8,
           "leadTimeAvg": 42.4,
@@ -4058,8 +4082,8 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:31.593Z",
-          "weekEnd": "2026-06-30T15:54:31.593Z",
+          "weekStart": "2026-06-23T16:22:33.374Z",
+          "weekEnd": "2026-06-30T16:22:33.374Z",
           "throughput": 9,
           "cycleTimeAvg": 9.9,
           "leadTimeAvg": 23.4,
@@ -4071,8 +4095,8 @@
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:31.593Z",
-          "weekEnd": "2026-07-07T15:54:31.593Z",
+          "weekStart": "2026-06-30T16:22:33.374Z",
+          "weekEnd": "2026-07-07T16:22:33.374Z",
           "throughput": 4,
           "cycleTimeAvg": 22,
           "leadTimeAvg": 78.9,
@@ -4084,8 +4108,8 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:31.593Z",
-          "weekEnd": "2026-07-14T15:54:31.593Z",
+          "weekStart": "2026-07-07T16:22:33.374Z",
+          "weekEnd": "2026-07-14T16:22:33.374Z",
           "throughput": 6,
           "cycleTimeAvg": 197.9,
           "leadTimeAvg": 476.1,
@@ -4097,8 +4121,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:31.593Z",
-          "weekEnd": "2026-07-21T15:54:31.593Z",
+          "weekStart": "2026-07-14T16:22:33.374Z",
+          "weekEnd": "2026-07-21T16:22:33.374Z",
           "throughput": 11,
           "cycleTimeAvg": 11.6,
           "leadTimeAvg": 140.8,
@@ -4327,6 +4351,10 @@
         {
           "recordedAt": "2026-07-21T15:54:39.136Z",
           "activeEpics": 2
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:43.101Z",
+          "activeEpics": 2
         }
       ],
       "focusIntegrityWeekly": [
@@ -4526,7 +4554,7 @@
           "summary": "WFP - 3rd Party Pay Data",
           "status": "To Do",
           "type": "Project",
-          "ageDays": 739.7
+          "ageDays": 739.8
         }
       ],
       "windowDays": 56,
@@ -4551,8 +4579,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:39.136Z",
-          "weekEnd": "2026-06-02T15:54:39.136Z",
+          "weekStart": "2026-05-26T16:22:43.101Z",
+          "weekEnd": "2026-06-02T16:22:43.101Z",
           "throughput": 10,
           "cycleTimeAvg": 19.3,
           "leadTimeAvg": 49.1,
@@ -4564,8 +4592,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:39.136Z",
-          "weekEnd": "2026-06-09T15:54:39.136Z",
+          "weekStart": "2026-06-02T16:22:43.101Z",
+          "weekEnd": "2026-06-09T16:22:43.101Z",
           "throughput": 9,
           "cycleTimeAvg": 10.8,
           "leadTimeAvg": 25,
@@ -4577,8 +4605,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:39.136Z",
-          "weekEnd": "2026-06-16T15:54:39.136Z",
+          "weekStart": "2026-06-09T16:22:43.101Z",
+          "weekEnd": "2026-06-16T16:22:43.101Z",
           "throughput": 7,
           "cycleTimeAvg": 14.9,
           "leadTimeAvg": 30.3,
@@ -4590,8 +4618,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:39.136Z",
-          "weekEnd": "2026-06-23T15:54:39.136Z",
+          "weekStart": "2026-06-16T16:22:43.101Z",
+          "weekEnd": "2026-06-23T16:22:43.101Z",
           "throughput": 4,
           "cycleTimeAvg": 10.1,
           "leadTimeAvg": 19.7,
@@ -4603,8 +4631,8 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:39.136Z",
-          "weekEnd": "2026-06-30T15:54:39.136Z",
+          "weekStart": "2026-06-23T16:22:43.101Z",
+          "weekEnd": "2026-06-30T16:22:43.101Z",
           "throughput": 5,
           "cycleTimeAvg": 12.2,
           "leadTimeAvg": 29.2,
@@ -4616,8 +4644,8 @@
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:39.136Z",
-          "weekEnd": "2026-07-07T15:54:39.136Z",
+          "weekStart": "2026-06-30T16:22:43.101Z",
+          "weekEnd": "2026-07-07T16:22:43.101Z",
           "throughput": 13,
           "cycleTimeAvg": 16.3,
           "leadTimeAvg": 81.2,
@@ -4629,8 +4657,8 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:39.136Z",
-          "weekEnd": "2026-07-14T15:54:39.136Z",
+          "weekStart": "2026-07-07T16:22:43.101Z",
+          "weekEnd": "2026-07-14T16:22:43.101Z",
           "throughput": 6,
           "cycleTimeAvg": 12.6,
           "leadTimeAvg": 31.7,
@@ -4642,8 +4670,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:39.136Z",
-          "weekEnd": "2026-07-21T15:54:39.136Z",
+          "weekStart": "2026-07-14T16:22:43.101Z",
+          "weekEnd": "2026-07-21T16:22:43.101Z",
           "throughput": 6,
           "cycleTimeAvg": 15.4,
           "leadTimeAvg": 24.8,
@@ -4671,7 +4699,7 @@
           "key": "HR-374",
           "summary": "HR: Production Bug Backlog Q3 2026",
           "status": "To Do",
-          "childTotal": 1,
+          "childTotal": 2,
           "childDone": 0,
           "childActive": 1,
           "percentDone": 0
@@ -4773,6 +4801,10 @@
         {
           "recordedAt": "2026-07-21T15:54:45.537Z",
           "activeEpics": 3
+        },
+        {
+          "recordedAt": "2026-07-21T16:22:51.755Z",
+          "activeEpics": 3
         }
       ],
       "focusIntegrityWeekly": [
@@ -4810,9 +4842,9 @@
         "In QA": 2,
         "Acceptance": 0,
         "Done": 3,
-        "Other": 2
+        "Other": 3
       },
-      "wipTotal": 59,
+      "wipTotal": 60,
       "dependencies": [
         {
           "blockerKey": "HR-368",
@@ -4937,8 +4969,8 @@
       "weekly": [
         {
           "label": "May 26–Jun 2",
-          "weekStart": "2026-05-26T15:54:45.537Z",
-          "weekEnd": "2026-06-02T15:54:45.537Z",
+          "weekStart": "2026-05-26T16:22:51.755Z",
+          "weekEnd": "2026-06-02T16:22:51.755Z",
           "throughput": 4,
           "cycleTimeAvg": 17.4,
           "leadTimeAvg": 170.9,
@@ -4950,8 +4982,8 @@
         },
         {
           "label": "Jun 2–Jun 9",
-          "weekStart": "2026-06-02T15:54:45.537Z",
-          "weekEnd": "2026-06-09T15:54:45.537Z",
+          "weekStart": "2026-06-02T16:22:51.755Z",
+          "weekEnd": "2026-06-09T16:22:51.755Z",
           "throughput": 3,
           "cycleTimeAvg": 16.5,
           "leadTimeAvg": 130.4,
@@ -4963,8 +4995,8 @@
         },
         {
           "label": "Jun 9–Jun 16",
-          "weekStart": "2026-06-09T15:54:45.537Z",
-          "weekEnd": "2026-06-16T15:54:45.537Z",
+          "weekStart": "2026-06-09T16:22:51.755Z",
+          "weekEnd": "2026-06-16T16:22:51.755Z",
           "throughput": 5,
           "cycleTimeAvg": 11,
           "leadTimeAvg": 24.3,
@@ -4976,8 +5008,8 @@
         },
         {
           "label": "Jun 16–Jun 23",
-          "weekStart": "2026-06-16T15:54:45.537Z",
-          "weekEnd": "2026-06-23T15:54:45.537Z",
+          "weekStart": "2026-06-16T16:22:51.755Z",
+          "weekEnd": "2026-06-23T16:22:51.755Z",
           "throughput": 4,
           "cycleTimeAvg": 25.6,
           "leadTimeAvg": 169.3,
@@ -4989,8 +5021,8 @@
         },
         {
           "label": "Jun 23–Jun 30",
-          "weekStart": "2026-06-23T15:54:45.537Z",
-          "weekEnd": "2026-06-30T15:54:45.537Z",
+          "weekStart": "2026-06-23T16:22:51.755Z",
+          "weekEnd": "2026-06-30T16:22:51.755Z",
           "throughput": 6,
           "cycleTimeAvg": 15.7,
           "leadTimeAvg": 60.6,
@@ -5002,8 +5034,8 @@
         },
         {
           "label": "Jun 30–Jul 7",
-          "weekStart": "2026-06-30T15:54:45.537Z",
-          "weekEnd": "2026-07-07T15:54:45.537Z",
+          "weekStart": "2026-06-30T16:22:51.755Z",
+          "weekEnd": "2026-07-07T16:22:51.755Z",
           "throughput": 4,
           "cycleTimeAvg": 16.8,
           "leadTimeAvg": 36.9,
@@ -5015,8 +5047,8 @@
         },
         {
           "label": "Jul 7–Jul 14",
-          "weekStart": "2026-07-07T15:54:45.537Z",
-          "weekEnd": "2026-07-14T15:54:45.537Z",
+          "weekStart": "2026-07-07T16:22:51.755Z",
+          "weekEnd": "2026-07-14T16:22:51.755Z",
           "throughput": 4,
           "cycleTimeAvg": 25,
           "leadTimeAvg": 45.4,
@@ -5028,8 +5060,8 @@
         },
         {
           "label": "Jul 14–Jul 21",
-          "weekStart": "2026-07-14T15:54:45.537Z",
-          "weekEnd": "2026-07-21T15:54:45.537Z",
+          "weekStart": "2026-07-14T16:22:51.755Z",
+          "weekEnd": "2026-07-21T16:22:51.755Z",
           "throughput": 1,
           "cycleTimeAvg": 20,
           "leadTimeAvg": 89.9,
