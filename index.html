@@ -83,8 +83,11 @@
     .epic-row-header .epic-key { font-weight: 700; }
     .epic-row-header .epic-summary { color: var(--muted); margin-left: 6px; }
     .epic-row-header .epic-pct { font-weight: 700; white-space: nowrap; }
-    .epic-row-due { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
-    .epic-row-due.overdue { color: var(--red); font-weight: 600; }
+    .epic-row-due { font-size: 12px; margin-bottom: 4px; font-weight: 600; }
+    .epic-row-due.neutral { color: var(--muted); font-weight: 400; }
+    .epic-row-due.overdue { color: var(--red); }
+    .epic-row-due.at-risk { color: var(--yellow); }
+    .epic-row-due.on-track { color: var(--green); }
     .epic-bar-track { background: var(--surface2); border-radius: 6px; height: 8px; overflow: hidden; }
     .epic-bar-fill { background: var(--accent); height: 100%; border-radius: 6px; }
     .epic-project-heading { font-size: 13px; font-weight: 700; margin: 16px 0 8px; }
@@ -1117,17 +1120,30 @@ function drawDepsDiagramArrows(edges, criticalEdges) {
 // (Stories/Tasks/Bugs, via Jira's parent field) that are Done. In the
 // all-projects view, epics are grouped under a heading per project.
 // Delivery date: Jira's native Epic "Due date" field -- the closest thing to
-// a target ship date this tool has without a formal roadmap field. Flags red
-// ("overdue") when that date has passed and the Epic still isn't 100% done;
-// otherwise shown as a plain muted line. Epics with nothing set in Jira show
-// an explicit "No delivery date set" rather than silently omitting the line,
-// so a missing date is visible, not just absent.
+// a target ship date this tool has without a formal roadmap field. Traffic-
+// light coloring: green once the Epic is 100% done (delivered), red once the
+// due date has passed with work still open, yellow inside a 14-day warning
+// window (reusing the same 14-day convention as Aging WIP) so a slipping
+// Epic is visible before it's actually overdue, green otherwise. Epics with
+// nothing set in Jira show an explicit "No delivery date set" (neutral,
+// unstyled) rather than silently omitting the line.
 function epicDueDateLine(e) {
-  if (!e.dueDate) return '<div class="epic-row-due">No delivery date set</div>';
+  if (!e.dueDate) return '<div class="epic-row-due neutral">No delivery date set</div>';
   const due = new Date(e.dueDate + 'T00:00:00');
   const label = due.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  const overdue = due.getTime() < Date.now() && (e.percentDone ?? 0) < 100;
-  return `<div class="epic-row-due ${overdue ? 'overdue' : ''}">Delivery date: ${label}${overdue ? ' (past due)' : ''}</div>`;
+  const done = (e.percentDone ?? 0) >= 100;
+  const daysUntilDue = (due.getTime() - Date.now()) / 86400000;
+  let cls, suffix;
+  if (done) {
+    cls = 'on-track'; suffix = ' (delivered)';
+  } else if (daysUntilDue < 0) {
+    cls = 'overdue'; suffix = ' (past due)';
+  } else if (daysUntilDue <= 14) {
+    cls = 'at-risk'; suffix = ' (due soon)';
+  } else {
+    cls = 'on-track'; suffix = ' (on track)';
+  }
+  return `<div class="epic-row-due ${cls}">Delivery date: ${label}${suffix}</div>`;
 }
 
 function epicRows(epics) {
