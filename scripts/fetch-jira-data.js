@@ -317,27 +317,53 @@ function analyzeIssue(issue, statusCategoryByName, aiWorkedKeys) {
   return { cycleTimeDays, leadTimeDays, regressed: regressions > 0, hadTransition, isAiTagged, resolved };
 }
 
+// Shared by Focus Integrity and Context Switching: reconstructs, for one
+// issue, whether it was in a cycle-time (in-flight) status as of each of the
+// 8 week-end boundaries, using its changelog -- the same history-parsing
+// approach as analyzeIssue(). Returns an array aligned with weekBoundaries;
+// entries are null for weeks before the issue existed, otherwise a boolean.
+function issueActiveByWeek(issue, weekBoundaries) {
+  const createdMs = new Date(issue.fields.created).getTime();
+  const transitions = (issue.changelog?.histories || [])
+    .flatMap((h) => h.items.filter((i) => i.field === "status").map((i) => ({ ts: new Date(h.created).getTime(), from: i.fromString, to: i.toString })))
+    .sort((a, b) => a.ts - b.ts);
+  // Status before the first known transition (or forever, if it never
+  // transitioned) -- needed so early weeks reflect what was actually true
+  // then, not the issue's current status.
+  const initialStatus = transitions.length ? transitions[0].from : issue.fields.status.name;
+
+  return weekBoundaries.map((boundary) => {
+    if (createdMs > boundary) return null; // didn't exist yet as of this week's end
+    let statusAtBoundary = initialStatus;
+    for (const t of transitions) {
+      if (t.ts <= boundary) statusAtBoundary = t.to;
+      else break;
+    }
+    return isCycleTimeStatus(statusAtBoundary);
+  });
+}
+
 // Focus signal, take two. "Active Epics right now" (focusIntegrityActiveEpics
 // above) can't tell parallel work on different Epics by different people
 // apart from one person actually bouncing between several -- both look like
 // "5 active epics." This measures context-switching directly: how many
 // distinct Epics did each individual assignee actually touch in a given
 // week. Reconstructed retroactively from every touched issue's status
-// changelog (same history-parsing approach as analyzeIssue()) rather than
-// accumulated forward like Focus Integrity's snapshot history, so all 8
-// weeks are real on the very first run -- no waiting for future GitHub
-// Action runs to fill in blank weeks.
-const CONTEXT_SWITCH_THRESHOLD = 3; // epics/week considered "heavy" switching -- a starting guess, easy to retune once real numbers come in
+// changelog rather than accumulated forward, so all 8 weeks are real on the
+// very first run -- no waiting for future GitHub Action runs to fill in
+// blank weeks.
+const CONTEXT_SWITCH_THRESHOLD = 2; // epics/week considered "heavy" switching -- lowered from 3 after real board data showed 3 was too high a bar to catch genuine cross-epic work
 
 async function analyzeContextSwitching(key, now) {
-  // Deliberately not scoped to currently-open issues only: anyone who
-  // started AND finished a ticket entirely within the 8-week window would
-  // have dropped off an "open issues" query by the time this runs, and their
-  // context-switching that week would silently disappear. Querying by
-  // "status changed" instead catches every issue with any activity in the
-  // window, whatever its current status.
+  // Not scoped to "status changed after -Nd" alone: a ticket that's been
+  // sitting in an in-flight status for months without a further transition
+  // would never match that filter and would silently vanish from every
+  // week's count even though it's genuinely been active the whole time.
+  // Catching every currently-open issue (regardless of when it last changed)
+  // plus anything Done that changed within the window covers both cases --
+  // same pattern already used for the wipIssues query above.
   const issues = await searchAll(
-    `project = ${key} AND status changed after -${WINDOW_DAYS}d`,
+    `project = ${key} AND (statusCategory != Done OR status changed after -${WINDOW_DAYS}d)`,
     ["assignee", "parent", "status", "created"],
     "changelog"
   );
@@ -351,29 +377,12 @@ async function analyzeContextSwitching(key, now) {
     const epicKey = issue.fields.parent ? issue.fields.parent.key : null;
     if (!assignee || !epicKey) continue; // unassigned, or not under an Epic -- nothing to attribute this to
 
-    const createdMs = new Date(issue.fields.created).getTime();
-    const transitions = (issue.changelog?.histories || [])
-      .flatMap((h) => h.items.filter((i) => i.field === "status").map((i) => ({ ts: new Date(h.created).getTime(), from: i.fromString, to: i.toString })))
-      .sort((a, b) => a.ts - b.ts);
-    // Status before the first known transition (or forever, if it never
-    // transitioned) -- needed so early weeks reflect what was actually true
-    // then, not the issue's current status.
-    const initialStatus = transitions.length ? transitions[0].from : issue.fields.status.name;
-
-    for (let w = 0; w < weekBoundaries.length; w++) {
-      const boundary = weekBoundaries[w];
-      if (createdMs > boundary) continue; // didn't exist yet as of this week's end
-
-      let statusAtBoundary = initialStatus;
-      for (const t of transitions) {
-        if (t.ts <= boundary) statusAtBoundary = t.to;
-        else break;
-      }
-      if (!isCycleTimeStatus(statusAtBoundary)) continue;
-
+    const activeByWeek = issueActiveByWeek(issue, weekBoundaries);
+    activeByWeek.forEach((active, w) => {
+      if (!active) return;
       if (!touchedByWeek[w].has(assignee)) touchedByWeek[w].set(assignee, new Set());
       touchedByWeek[w].get(assignee).add(epicKey);
-    }
+    });
   }
 
   const contextSwitchWeeklyAvg = touchedByWeek.map((assigneeMap) => {
@@ -393,6 +402,36 @@ async function analyzeContextSwitching(key, now) {
     contextSwitchFlagged,
     contextSwitchThreshold: CONTEXT_SWITCH_THRESHOLD,
   };
+}
+
+// Focus Integrity, take two: instead of accumulating one real snapshot per
+// GitHub Action run (which needs real elapsed time to fill in 8 weeks), this
+// reconstructs all 8 weeks retroactively using the same technique as Context
+// Switching above -- for each of this project's open Epics' children, work
+// out what status each child was in as of each week's end boundary, and
+// count how many distinct Epics had at least one active child that week.
+async function analyzeFocusIntegrityWeekly(key, openEpicKeys, now) {
+  if (!openEpicKeys.length) return Array(8).fill(0);
+
+  const issues = await searchAll(
+    `project = ${key} AND parent in (${openEpicKeys.map((k) => `"${k}"`).join(",")}) AND (statusCategory != Done OR status changed after -${WINDOW_DAYS}d)`,
+    ["parent", "status", "created"],
+    "changelog"
+  );
+
+  const weekBoundaries = Array.from({ length: 8 }, (_, i) => now - (7 - i) * WEEK_MS);
+  const activeEpicsByWeek = weekBoundaries.map(() => new Set());
+
+  for (const issue of issues) {
+    const epicKey = issue.fields.parent ? issue.fields.parent.key : null;
+    if (!epicKey) continue;
+    const activeByWeek = issueActiveByWeek(issue, weekBoundaries);
+    activeByWeek.forEach((active, w) => {
+      if (active) activeEpicsByWeek[w].add(epicKey);
+    });
+  }
+
+  return activeEpicsByWeek.map((s) => s.size);
 }
 
 async function fetchStatusCategoryMap() {
@@ -447,31 +486,6 @@ function weekLabel(startMs, endMs) {
   return `${fmt(startMs)}–${fmt(endMs)}`;
 }
 
-/** Focus Integrity is a live snapshot ("Epics with active WIP right now"),
- * not something Jira lets us reconstruct retroactively -- there's no JQL for
- * "how many epics had active children as of 3 weeks ago." So instead of
- * computing a trend, we accumulate one real snapshot per Action run into
- * `history` (see analyzeProject) and bucket that accumulated history into the
- * same 8 weekly windows used everywhere else on the dashboard, taking the
- * latest known value as of each week's end. Early weeks will show gaps (null)
- * until enough real runs have accumulated after this feature ships -- that's
- * expected, not a bug. */
-function focusIntegrityWeeklySeries(history, now) {
-  const sorted = [...history].sort((a, b) => new Date(a.recordedAt) - new Date(b.recordedAt));
-  const series = [];
-  for (let i = 0; i < 8; i++) {
-    const weeksAgo = 7 - i; // matches the same convention as the `weekly` array below
-    const endMs = now - weeksAgo * WEEK_MS;
-    let value = null;
-    for (const h of sorted) {
-      if (new Date(h.recordedAt).getTime() <= endMs) value = h.activeEpics;
-      else break;
-    }
-    series.push(value);
-  }
-  return series;
-}
-
 /** Each project's active (not-yet-Done) Epics, with % of child work items
  * (Stories/Tasks/Bugs under that Epic via the "parent" field) that are Done.
  * Verified against a real example (INV-651): parent = INV-651 returns its 10
@@ -506,7 +520,7 @@ async function analyzeEpics(key) {
   return results;
 }
 
-async function analyzeProject(key, statusCategoryByName, existingHistory) {
+async function analyzeProject(key, statusCategoryByName) {
   const now = Date.now();
 
   const epics = await analyzeEpics(key);
@@ -518,13 +532,11 @@ async function analyzeProject(key, statusCategoryByName, existingHistory) {
   const focusIntegrityActiveEpics = epics.filter((e) => e.childActive > 0).length;
   const focusIntegrityTotalEpics = epics.length;
 
-  // Accumulate today's real snapshot onto whatever history main() read back
-  // from the existing data.json, trimmed to the rolling window -- this is
-  // what turns the single "Epics with active WIP right now" number into a
-  // genuine 8-week trend over time (see focusIntegrityWeeklySeries() above).
-  const focusIntegrityHistory = [...(existingHistory || []), { recordedAt: new Date(now).toISOString(), activeEpics: focusIntegrityActiveEpics }]
-    .filter((h) => now - new Date(h.recordedAt).getTime() <= WINDOW_DAYS * 86400000);
-  const focusIntegrityWeekly = focusIntegrityWeeklySeries(focusIntegrityHistory, now);
+  // Rolling 8-week trend, reconstructed from the changelog (see
+  // analyzeFocusIntegrityWeekly() above) rather than accumulated one real
+  // snapshot per Action run -- all 8 weeks are real immediately, no waiting
+  // for future runs to fill in blank weeks.
+  const focusIntegrityWeekly = await analyzeFocusIntegrityWeekly(key, epics.map((e) => e.key), now);
 
   // WIP snapshot: all currently open issues, grouped by status (not time-windowed).
   // Also pull issuelinks so we can surface real "blocked by" dependencies, not just a
@@ -684,7 +696,6 @@ async function analyzeProject(key, statusCategoryByName, existingHistory) {
     epics,
     focusIntegrityActiveEpics,
     focusIntegrityTotalEpics,
-    focusIntegrityHistory,
     focusIntegrityWeekly,
     ...contextSwitching,
     sle85Days: overall.sle85Days,
@@ -715,22 +726,18 @@ async function analyzeProject(key, statusCategoryByName, existingHistory) {
 async function main() {
   const statusCategoryByName = await fetchStatusCategoryMap();
 
-  // This script overwrites data.json every run (every 3 hours, per the GitHub
-  // Action). Read whatever's already there once, up front, for two reasons:
-  // (1) hand-maintained "manual" fields (Focus Integrity note, Team Pulse
-  // fallback) need to survive being overwritten, and (2) each project's
-  // accumulated focusIntegrityHistory needs to be carried forward into this
-  // run so the rolling 8-week trend keeps building instead of resetting to
-  // a single point every time the Action runs.
+  // This script overwrites data.json every run (every 3 hours, per the
+  // GitHub Action). Read whatever's already there once, up front, so
+  // hand-maintained "manual" fields (Focus Integrity note, Team Pulse
+  // fallback) survive being overwritten -- everything else, including Focus
+  // Integrity's and Context Switching's weekly trends, is reconstructed
+  // fresh from Jira's changelog on every run, so nothing else needs to carry
+  // state forward between runs.
   const fs = require("fs");
   let existingManual = {};
-  let existingProjectsByKey = {};
   try {
     const existingData = JSON.parse(fs.readFileSync("data.json", "utf8"));
     existingManual = existingData.manual || {};
-    for (const p of existingData.projects || []) {
-      if (p && p.key) existingProjectsByKey[p.key] = p;
-    }
   } catch {
     // No existing data.json (first run) -- fall back to empty defaults below.
   }
@@ -739,8 +746,7 @@ async function main() {
   for (const key of PROJECTS) {
     console.log(`Analyzing ${key}...`);
     try {
-      const priorHistory = (existingProjectsByKey[key] && existingProjectsByKey[key].focusIntegrityHistory) || [];
-      projects.push(await analyzeProject(key, statusCategoryByName, priorHistory));
+      projects.push(await analyzeProject(key, statusCategoryByName));
     } catch (err) {
       console.error(`Failed to analyze ${key}: ${err.message}`);
       projects.push({ key, error: err.message });
