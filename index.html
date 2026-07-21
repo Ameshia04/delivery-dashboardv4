@@ -618,14 +618,20 @@ async function load() {
   const genAt = new Date(data.generatedAt);
   document.getElementById('liveBadge').textContent = '● Live · updated ' + genAt.toLocaleString();
 
+  // Dropdown options are alphabetical (A-Z by project key) for easier
+  // scanning -- independent of PROJECTS' order in fetch-jira-data.js, which
+  // stays whatever order made sense there and doesn't affect chart ordering
+  // elsewhere (render() re-derives its own `projects` from DATA each time).
+  const sortedProjects = [...projects].sort((a, b) => a.key.localeCompare(b.key));
+
   const sel = document.getElementById('projectFilter');
   sel.innerHTML = '<option value="__all__">All Projects</option>' +
-    projects.map(p => `<option value="${p.key}">${p.key}</option>`).join('');
+    sortedProjects.map(p => `<option value="${p.key}">${p.key}</option>`).join('');
 
   const pulseSel = document.getElementById('pulseProject');
   if (pulseSel) {
     pulseSel.innerHTML = '<option value="All">All Projects</option>' +
-      projects.map(p => `<option value="${p.key}">${p.key}</option>`).join('');
+      sortedProjects.map(p => `<option value="${p.key}">${p.key}</option>`).join('');
   }
 
   render('__all__');
@@ -1092,7 +1098,7 @@ function renderContextSwitching(weeklyAvg, thisWeekAvg, flagged, labels) {
   `;
   makeChart('contextSwitchChart', {
     type: 'line',
-    data: { labels, datasets: [{ label: 'Avg epics/assignee', data: weeklyAvg, borderColor: '#eab308', backgroundColor: '#eab308', tension: 0.3, spanGaps: true }] },
+    data: { labels, datasets: [{ label: 'Avg epics/assignee', data: weeklyAvg, borderColor: '#38bdf8', backgroundColor: '#38bdf8', tension: 0.3, spanGaps: true }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
   });
   const container = document.getElementById('csFlaggedList');
@@ -1222,16 +1228,15 @@ function renderSingleProject(p) {
   });
 
   // Focus Integrity: a genuine rolling 8-week trend, matching the pattern of
-  // the other Five Signals trend charts here. Built from real accumulated
-  // snapshots (one per GitHub Action run, see focusIntegrityWeeklySeries()
-  // in fetch-jira-data.js) rather than computed after the fact -- Jira has
-  // no way to reconstruct "how many epics had active WIP 3 weeks ago." Early
-  // weeks will show gaps (nulls, which Chart.js renders as breaks in the
-  // line) until enough real runs have accumulated since this shipped -- that's
-  // expected, not a bug. The All Projects view's cross-project snapshot bar
-  // chart (above, in renderAllProjects) is unaffected by this.
+  // the other Five Signals trend charts here. Reconstructed retroactively
+  // from each Epic child's status changelog (see analyzeFocusIntegrityWeekly()
+  // in fetch-jira-data.js) -- the same technique Context Switching uses below
+  // -- rather than accumulated one real snapshot per GitHub Action run, so
+  // all 8 weeks are real from the very first run instead of filling in
+  // slowly over real time. The All Projects view's cross-project snapshot
+  // bar chart (above, in renderAllProjects) is unaffected by this.
   document.getElementById('focusIntegrityChartTitle').textContent = `${p.key} — Focus Integrity Trend`;
-  document.getElementById('focusIntegrityChartSub').textContent = 'Weekly active Epics, oldest → newest (8 weeks)';
+  document.getElementById('focusIntegrityChartSub').textContent = 'Weekly active Epics, oldest → newest (8 weeks) · reconstructed from Jira\'s changelog';
   makeChart('focusIntegrityChart', {
     type: 'line',
     data: { labels, datasets: [{ label: 'Active Epics', data: p.focusIntegrityWeekly || [], borderColor: '#eab308', backgroundColor: '#eab308', tension: 0.3, spanGaps: false }] },
