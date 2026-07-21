@@ -117,6 +117,15 @@
     .pulse-chip.green { background: #10331f; color: var(--green); }
     .pulse-chip.yellow { background: #3a2f10; color: var(--yellow); }
     .pulse-chip.red { background: #3a1a1a; color: var(--red); }
+    .cs-section { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .cs-heading { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .cs-sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .cs-chips { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+    #contextSwitchChart { max-height: 140px; margin-bottom: 12px; }
+    .cs-flagged-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; background: var(--surface2); border: 1px solid var(--yellow); border-radius: 8px; padding: 6px 10px; margin-bottom: 6px; font-size: 12px; flex-wrap: wrap; }
+    .cs-flagged-count { color: var(--yellow); font-weight: 700; font-size: 11px; white-space: nowrap; }
+    .cs-flagged-epics { color: var(--muted); font-size: 10px; }
+    .cs-flagged-empty { font-size: 11px; color: var(--muted); padding: 4px 0; }
     #printBtn {
       background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
       padding: 7px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
@@ -329,6 +338,15 @@
         <h3 id="focusIntegrityChartTitle">Focus Integrity</h3>
         <p id="focusIntegrityChartSub">Distinct Epics with active WIP right now — fewer means less context-switching</p>
         <canvas id="focusIntegrityChart"></canvas>
+        <div class="cs-section">
+          <div class="cs-heading">Context switching <span class="caret" onclick="toggleCollapse('csBody', this)">▾</span></div>
+          <div id="csBody">
+            <p class="cs-sub" id="csSub">Distinct Epics touched per assignee, weekly · reconstructed from Jira's changelog, not a live snapshot</p>
+            <div class="cs-chips" id="csChips"></div>
+            <canvas id="contextSwitchChart"></canvas>
+            <div id="csFlaggedList"></div>
+          </div>
+        </div>
       </div>
       <div class="chart-card" id="teamPulseCard">
         <h3>Team Pulse</h3>
@@ -762,6 +780,21 @@ function renderAllProjects(projects) {
       return `${p.focusIntegrityActiveEpics ?? 0} active of ${p.focusIntegrityTotalEpics ?? 0} open epics`;
     } } } }, scales: { y: { beginAtZero: true } } }
   });
+
+  // Context switching (all-projects view): pointwise-average each project's
+  // weekly series, and pool every project's flagged assignees into one list
+  // tagged with which project they were flagged in. Week labels are shared
+  // across projects (same "now" and window), so borrow them from whichever
+  // project has a weekly series.
+  const csWeeklyAvg = Array.from({ length: 8 }, (_, i) => {
+    const vals = projects.map(p => (p.contextSwitchWeeklyAvg || [])[i]).filter(v => v !== null && v !== undefined);
+    return vals.length ? Number((vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1)) : null;
+  });
+  const csThisWeekVals = projects.map(p => p.contextSwitchThisWeekAvg).filter(v => v !== null && v !== undefined);
+  const csThisWeekAvg = csThisWeekVals.length ? Number((csThisWeekVals.reduce((a, b) => a + b, 0) / csThisWeekVals.length).toFixed(1)) : null;
+  const csFlaggedAll = projects.flatMap(p => (p.contextSwitchFlagged || []).map(f => ({ ...f, project: p.key }))).sort((a, b) => b.epicCount - a.epicCount);
+  const csLabelsSource = projects.find(p => p.weekly && p.weekly.length);
+  renderContextSwitching(csWeeklyAvg, csThisWeekAvg, csFlaggedAll, csLabelsSource ? csLabelsSource.weekly.map(w => w.label) : []);
 }
 
 // Dependencies come straight from Jira's "Blocks" linked work items -- each
@@ -1046,6 +1079,36 @@ function renderAgingSummary(oldestAgeDays, agingCount) {
   `;
 }
 
+// Context switching: distinct Epics touched per assignee per week, computed
+// server-side in fetch-jira-data.js from each issue's status changelog --
+// not a live snapshot, so all 8 weeks are real from the very first run
+// (unlike the active-epics-right-now chart above it, which has to accumulate
+// its own history over real time). weeklyAvg is 8 numbers/nulls oldest ->
+// newest; flagged is this week's list of assignees at/above the threshold.
+function renderContextSwitching(weeklyAvg, thisWeekAvg, flagged, labels) {
+  document.getElementById('csChips').innerHTML = `
+    <div class="deps-chip blue"><b>${fmt(thisWeekAvg)}</b>Avg epics/assignee, this week</div>
+    <div class="deps-chip yellow"><b>${flagged.length}</b>Flagged this week</div>
+  `;
+  makeChart('contextSwitchChart', {
+    type: 'line',
+    data: { labels, datasets: [{ label: 'Avg epics/assignee', data: weeklyAvg, borderColor: '#eab308', backgroundColor: '#eab308', tension: 0.3, spanGaps: true }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+  });
+  const container = document.getElementById('csFlaggedList');
+  if (!flagged.length) {
+    container.innerHTML = '<div class="cs-flagged-empty">No one crossed the threshold this week.</div>';
+  } else {
+    container.innerHTML = flagged.map(f => `
+      <div class="cs-flagged-row">
+        <div><b>${f.name}</b>${f.project ? ` <span style="color:var(--muted);font-weight:400">(${f.project})</span>` : ''}</div>
+        <div class="cs-flagged-count">${f.epicCount} epics</div>
+        <div class="cs-flagged-epics">${f.epicKeys.join(', ')}</div>
+      </div>
+    `).join('');
+  }
+}
+
 function renderSingleProject(p) {
   const weekly = p.weekly || [];
   const labels = weekly.map(w => w.label);
@@ -1176,6 +1239,8 @@ function renderSingleProject(p) {
       `${ctx.parsed.y ?? 0} active of ${p.focusIntegrityTotalEpics ?? 0} open epics`
     } } }, scales: { y: { beginAtZero: true } } }
   });
+
+  renderContextSwitching(p.contextSwitchWeeklyAvg || [], p.contextSwitchThisWeekAvg, p.contextSwitchFlagged || [], labels);
 }
 
 // Keep the dependency diagram's arrows aligned to their cards as the window
