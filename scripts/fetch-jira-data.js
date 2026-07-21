@@ -1,4 +1,4 @@
-/**
+=/**
  * fetch-jira-data.js  (v2)
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
  *
@@ -546,7 +546,7 @@ async function analyzeProject(key, statusCategoryByName) {
   // plain `statusCategory != Done` filter would silently exclude it -- add it
   // back explicitly so finished-but-not-yet-shipped work still shows up (in
   // the "Done" WIP lane, per STATUS_CANONICAL_MAP).
-  const wipIssues = await searchAll(`project = ${key} AND (statusCategory != Done OR status = "Ready for Release")`, ["status", "summary", "issuelinks", "components", "created", "issuetype"]);
+  const wipIssues = await searchAll(`project = ${key} AND (statusCategory != Done OR status = "Ready for Release")`, ["status", "summary", "issuelinks", "components", "created", "issuetype", "parent"]);
   const wipByStatus = {};
   for (const lane of WIP_LANES) wipByStatus[lane] = 0;
   let otherWipCount = 0;
@@ -595,30 +595,59 @@ async function analyzeProject(key, statusCategoryByName) {
       blockerSummary: blocker.summary,
       blockerStatus: blocker.status,
       blockerProject: blocker.key.split("-")[0],
+      blockerEpicKey: blocker.epicKey || null,
       blockedKey: blocked.key,
       blockedSummary: blocked.summary,
       blockedStatus: blocked.status,
       blockedProject: blocked.key.split("-")[0],
+      blockedEpicKey: blocked.epicKey || null,
     });
   };
   const isOpenLinkedIssue = (fields) => {
     const cat = fields.status && fields.status.statusCategory ? fields.status.statusCategory.key : null;
     return cat ? cat !== "done" : true;
   };
+  // Resolved (Done) blockers of currently-open tickets. These are excluded
+  // from the live `dependencies` graph above (a finished ticket is no longer
+  // an active constraint), but we keep them here so the per-Epic diagram can
+  // show an "already built" footer instead of a chain that just starts
+  // mid-story with no sense of what came before it.
+  const resolvedBlockers = [];
+  const seenResolvedPairs = new Set();
   for (const issue of wipIssues) {
     const links = issue.fields.issuelinks || [];
-    const thisIssue = { key: issue.key, summary: issue.fields.summary, status: issue.fields.status.name };
+    const thisIssue = {
+      key: issue.key,
+      summary: issue.fields.summary,
+      status: issue.fields.status.name,
+      // Jira gives us the full field set (including "parent") for our own
+      // project's issues since we requested it above. Linked issues on the
+      // other side of an edge only come back with Jira's fixed minimal field
+      // set (summary/status/etc.), which usually does NOT include parent --
+      // so blocker/blocked epic info is reliable on this side, best-effort
+      // on the other.
+      epicKey: issue.fields.parent ? issue.fields.parent.key : null,
+    };
     for (const l of links) {
       if (!l.type || l.type.name !== "Blocks") continue;
       // This issue is blocked by another (inward link).
-      if (l.inwardIssue && isOpenLinkedIssue(l.inwardIssue.fields || {})) {
+      if (l.inwardIssue) {
         const f = l.inwardIssue.fields || {};
-        addDependency({ key: l.inwardIssue.key, summary: f.summary || null, status: f.status ? f.status.name : null }, thisIssue);
+        const blocker = { key: l.inwardIssue.key, summary: f.summary || null, status: f.status ? f.status.name : null, epicKey: f.parent ? f.parent.key : null };
+        if (isOpenLinkedIssue(f)) {
+          addDependency(blocker, thisIssue);
+        } else {
+          const pairKey = `${blocker.key}->${thisIssue.key}`;
+          if (!seenResolvedPairs.has(pairKey)) {
+            seenResolvedPairs.add(pairKey);
+            resolvedBlockers.push({ blockerKey: blocker.key, blockerSummary: blocker.summary, blockedKey: thisIssue.key, blockedEpicKey: thisIssue.epicKey });
+          }
+        }
       }
       // This issue blocks another (outward link).
       if (l.outwardIssue && isOpenLinkedIssue(l.outwardIssue.fields || {})) {
         const f = l.outwardIssue.fields || {};
-        addDependency(thisIssue, { key: l.outwardIssue.key, summary: f.summary || null, status: f.status ? f.status.name : null });
+        addDependency(thisIssue, { key: l.outwardIssue.key, summary: f.summary || null, status: f.status ? f.status.name : null, epicKey: f.parent ? f.parent.key : null });
       }
     }
   }
@@ -705,6 +734,7 @@ async function analyzeProject(key, statusCategoryByName) {
     wipTotal: wipIssues.length,
     dependencies,
     dependencyCount: dependencies.length,
+    resolvedBlockers,
     oldestWipAgeDays,
     agingWipCount,
     agingWipIssues,
