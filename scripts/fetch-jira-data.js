@@ -494,7 +494,7 @@ function weekLabel(startMs, endMs) {
  * (filtered at the JQL level, so they're never fetched) since the dashboard
  * only wants to surface Epics still in flight. */
 async function analyzeEpics(key) {
-  const epics = await searchAll(`project = ${key} AND issuetype = Epic AND statusCategory != Done`, ["summary", "status"]);
+  const epics = await searchAll(`project = ${key} AND issuetype = Epic AND statusCategory != Done`, ["summary", "status", "duedate"]);
   const results = [];
   for (const epic of epics) {
     const children = await searchAll(`parent = ${epic.key}`, ["status"]);
@@ -515,6 +515,10 @@ async function analyzeEpics(key) {
       childDone,
       childActive,
       percentDone,
+      // Jira's native "Due date" field on the Epic itself -- the closest
+      // thing to a delivery date this tool has without a formal
+      // roadmap/target-date field. Null when nobody has set one.
+      dueDate: epic.fields.duedate || null,
     });
   }
   return results;
