@@ -1,3 +1,4 @@
+
 /**
  * fetch-jira-data.js  (v2)
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
@@ -11,6 +12,14 @@
  *   JIRA_BASE_URL   e.g. https://apspayroll.atlassian.net
  *   JIRA_EMAIL      the Jira account email tied to the API token
  *   JIRA_API_TOKEN  Jira Cloud API token (id.atlassian.com/manage-profile/security/api-tokens)
+ *
+ * Env var, optional:
+ *   CLAUDE_BOT_ACCOUNT_ID  Jira accountId (not email) of a dedicated agent/bot
+ *                          account. Once agent sessions consistently log work
+ *                          on tickets under this account, set this secret and
+ *                          AI Leverage switches from a component-tag guess to
+ *                          an objective worklogAuthor JQL measurement. Leave
+ *                          unset until that account/convention exists.
  *
  * WHAT'S NEW IN V2:
  *   - Rolling 8-week (56-day) window, always relative to "today" (the
@@ -49,6 +58,24 @@ const AGING_WIP_THRESHOLD_DAYS = 14; // open issues older than this are flagged 
 const BASE_URL = process.env.JIRA_BASE_URL;
 const EMAIL = process.env.JIRA_EMAIL;
 const TOKEN = process.env.JIRA_API_TOKEN;
+
+// AI Leverage, standardized measurement (optional, not required):
+// Once there's a single dedicated Jira account that Claude/agent sessions
+// consistently use to log work on a ticket (a worklog entry, not just a
+// comment -- JQL can filter worklogAuthor natively, but there's no equivalent
+// "commented by" clause), set this to that account's Jira accountId (not
+// email) as a GitHub Actions secret, e.g. CLAUDE_BOT_ACCOUNT_ID. When set,
+// AI Leverage switches from the current component-tag/text-marker guess
+// to an objective worklogAuthor JQL query. When unset, behavior is unchanged.
+//
+// Until that account exists, AI Leverage is a best-effort guess made of two
+// signals, either of which counts an issue as AI-touched: (1) an "AI"/
+// "Claude" component tag, or (2) description text left by this Jira site's
+// internal "aps-workflow" tooling -- an "Execution checklist ... Claude
+// sessions executing this ticket" line, or a "_aps-workflow create-ticket
+// vX.Y.Z_" footer tag. Confirmed present on real tickets via a live JQL
+// text search (e.g. EMP-935, EXP-964) on 2026-07-15. See isAiWorkflowTagged().
+const CLAUDE_BOT_ACCOUNT_ID = process.env.CLAUDE_BOT_ACCOUNT_ID || null;
 
 if (!BASE_URL || !EMAIL || !TOKEN) {
   console.error("Missing JIRA_BASE_URL, JIRA_EMAIL, or JIRA_API_TOKEN environment variables.");
@@ -126,12 +153,62 @@ function median(nums) {
   return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
 }
 
+// Linear-interpolation percentile, matching Excel/Sheets PERCENTILE.INC --
+// used for the Service Level Expectation (SLE): "85% of stories complete
+// within N days," computed per project over the rolling 8-week window
+// (see summarize() below).
+function percentile(nums, p) {
+  if (!nums.length) return null;
+  const s = [...nums].sort((a, b) => a - b);
+  const idx = (p / 100) * (s.length - 1);
+  const lo = Math.floor(idx), hi = Math.ceil(idx);
+  if (lo === hi) return s[lo];
+  return s[lo] + (s[hi] - s[lo]) * (idx - lo);
+}
+
 function round1(n) {
   return n === null || n === undefined ? null : Number(n.toFixed(1));
 }
 
 function isAiComponent(name) {
   return /claude|ai/i.test(name || "");
+}
+
+// Second AI Leverage signal, alongside the component-tag guess: this Jira
+// site's tickets are frequently created and/or executed through an internal
+// "aps-workflow" tool, and tickets touched by that pipeline leave textual
+// fingerprints in the description -- an "Execution checklist" line reading
+// "Claude sessions executing this ticket: read and update this file as work
+// progresses", and/or a "_aps-workflow create-ticket vX.Y.Z_" footer tag.
+// Confirmed present on real tickets (e.g. EMP-935, EXP-964) via a live JQL
+// text search on 2026-07-15. Neither marker requires a dedicated bot account
+// or component tag to exist, so this catches AI-touched work the other two
+// signals miss. issue.fields.description comes back from the Jira API as an
+// Atlassian Document Format (ADF) object, not plain text, so it has to be
+// flattened first.
+const AI_WORKFLOW_TEXT_PATTERN = /claude session|_aps-workflow|aps-workflow create-ticket/i;
+function adfToText(node) {
+  if (!node) return "";
+  if (typeof node === "string") return node;
+  let text = node.text || "";
+  if (Array.isArray(node.content)) text += " " + node.content.map(adfToText).join(" ");
+  return text;
+}
+function isAiWorkflowTagged(description) {
+  return AI_WORKFLOW_TEXT_PATTERN.test(adfToText(description));
+}
+
+/** Objective AI Leverage signal, once a standard agent account exists: which
+ * issues in the resolved-window has that account logged work on. Returns
+ * null (meaning "no standard yet, fall back to the component-tag guess")
+ * when CLAUDE_BOT_ACCOUNT_ID isn't configured. */
+async function aiWorkedIssueKeys(key) {
+  if (!CLAUDE_BOT_ACCOUNT_ID) return null;
+  const issues = await searchAll(
+    `project = ${key} AND resolutiondate >= -${WINDOW_DAYS}d AND worklogAuthor = "${CLAUDE_BOT_ACCOUNT_ID}"`,
+    ["key"]
+  );
+  return new Set(issues.map((i) => i.key));
 }
 
 // Different projects use different literal Jira status names for the same
@@ -176,8 +253,11 @@ function isCycleTimeStatus(name) {
   return canonical ? CYCLE_TIME_STATUSES.has(canonical) : false;
 }
 
-/** Analyze one issue's status changelog for cycle time, lead time, and regressions. */
-function analyzeIssue(issue, statusCategoryByName) {
+/** Analyze one issue's status changelog for cycle time, lead time, and
+ * regressions. `aiWorkedKeys` is null (component-tag heuristic) or a Set of
+ * issue keys the standard agent account worked on (objective measurement) --
+ * see aiWorkedIssueKeys(). */
+function analyzeIssue(issue, statusCategoryByName, aiWorkedKeys) {
   const created = new Date(issue.fields.created).getTime();
   const resolved = issue.fields.resolutiondate ? new Date(issue.fields.resolutiondate).getTime() : null;
 
@@ -218,7 +298,9 @@ function analyzeIssue(issue, statusCategoryByName) {
   if (resolved) leadTimeDays = (resolved - created) / 86400000;
 
   const hadTransition = histories.length > 0;
-  const isAiTagged = (issue.fields.components || []).some((c) => isAiComponent(c.name));
+  const isAiTagged = aiWorkedKeys
+    ? aiWorkedKeys.has(issue.key)
+    : (issue.fields.components || []).some((c) => isAiComponent(c.name)) || isAiWorkflowTagged(issue.fields.description);
 
   return { cycleTimeDays, leadTimeDays, regressed: regressions > 0, hadTransition, isAiTagged, resolved };
 }
@@ -261,12 +343,43 @@ function summarize(analyzed) {
     qualityLoopbackCount: regressed.length,
     qualityLoopbackSampleSize: withTransitions.length,
     aiLeverageRatePct: analyzed.length ? round1((aiTagged.length / analyzed.length) * 100) : null,
+    // Service Level Expectation: the 85th percentile of cycle time over this
+    // same population -- "85% of these stories completed within N days."
+    // Used as this project's own tailored Risk Status baseline (see
+    // analyzeProject) instead of one flat day-count ceiling applied to every
+    // project regardless of its normal pace.
+    sle85Days: round1(percentile(withCycleTime, 85)),
   };
 }
 
 function weekLabel(startMs, endMs) {
   const fmt = (ms) => new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   return `${fmt(startMs)}–${fmt(endMs)}`;
+}
+
+/** Focus Integrity is a live snapshot ("Epics with active WIP right now"),
+ * not something Jira lets us reconstruct retroactively -- there's no JQL for
+ * "how many epics had active children as of 3 weeks ago." So instead of
+ * computing a trend, we accumulate one real snapshot per Action run into
+ * `history` (see analyzeProject) and bucket that accumulated history into the
+ * same 8 weekly windows used everywhere else on the dashboard, taking the
+ * latest known value as of each week's end. Early weeks will show gaps (null)
+ * until enough real runs have accumulated after this feature ships -- that's
+ * expected, not a bug. */
+function focusIntegrityWeeklySeries(history, now) {
+  const sorted = [...history].sort((a, b) => new Date(a.recordedAt) - new Date(b.recordedAt));
+  const series = [];
+  for (let i = 0; i < 8; i++) {
+    const weeksAgo = 7 - i; // matches the same convention as the `weekly` array below
+    const endMs = now - weeksAgo * WEEK_MS;
+    let value = null;
+    for (const h of sorted) {
+      if (new Date(h.recordedAt).getTime() <= endMs) value = h.activeEpics;
+      else break;
+    }
+    series.push(value);
+  }
+  return series;
 }
 
 /** Each project's active (not-yet-Done) Epics, with % of child work items
@@ -283,6 +396,12 @@ async function analyzeEpics(key) {
     const children = await searchAll(`parent = ${epic.key}`, ["status"]);
     const childTotal = children.length;
     const childDone = children.filter((c) => c.fields.status.statusCategory && c.fields.status.statusCategory.key === "done").length;
+    // "Active" children are ones actually in an in-flight build/review/QA/
+    // acceptance stage (reusing the same CYCLE_TIME_STATUSES definition),
+    // as opposed to just sitting in Backlog/To Do/Ready for Development --
+    // this is what Focus Integrity below uses to decide if an Epic counts
+    // as "currently being worked."
+    const childActive = children.filter((c) => isCycleTimeStatus(c.fields.status.name)).length;
     const percentDone = childTotal ? round1((childDone / childTotal) * 100) : 0;
     results.push({
       key: epic.key,
@@ -290,16 +409,32 @@ async function analyzeEpics(key) {
       status: epic.fields.status.name,
       childTotal,
       childDone,
+      childActive,
       percentDone,
     });
   }
   return results;
 }
 
-async function analyzeProject(key, statusCategoryByName) {
+async function analyzeProject(key, statusCategoryByName, existingHistory) {
   const now = Date.now();
 
   const epics = await analyzeEpics(key);
+  // Focus Integrity (proposed proxy, pending a formal definition with the
+  // team): how many distinct Epics currently have active WIP vs. how many
+  // open Epics exist in total. Lower "active" relative to team size means
+  // work is concentrated on fewer Epics at once instead of spread thin
+  // across many simultaneously -- a WIP-discipline / context-switching signal.
+  const focusIntegrityActiveEpics = epics.filter((e) => e.childActive > 0).length;
+  const focusIntegrityTotalEpics = epics.length;
+
+  // Accumulate today's real snapshot onto whatever history main() read back
+  // from the existing data.json, trimmed to the rolling window -- this is
+  // what turns the single "Epics with active WIP right now" number into a
+  // genuine 8-week trend over time (see focusIntegrityWeeklySeries() above).
+  const focusIntegrityHistory = [...(existingHistory || []), { recordedAt: new Date(now).toISOString(), activeEpics: focusIntegrityActiveEpics }]
+    .filter((h) => now - new Date(h.recordedAt).getTime() <= WINDOW_DAYS * 86400000);
+  const focusIntegrityWeekly = focusIntegrityWeeklySeries(focusIntegrityHistory, now);
 
   // WIP snapshot: all currently open issues, grouped by status (not time-windowed).
   // Also pull issuelinks so we can surface real "blocked by" dependencies, not just a
@@ -309,7 +444,7 @@ async function analyzeProject(key, statusCategoryByName) {
   // plain `statusCategory != Done` filter would silently exclude it -- add it
   // back explicitly so finished-but-not-yet-shipped work still shows up (in
   // the "Done" WIP lane, per STATUS_CANONICAL_MAP).
-  const wipIssues = await searchAll(`project = ${key} AND (statusCategory != Done OR status = "Ready for Release")`, ["status", "summary", "issuelinks", "components", "created"]);
+  const wipIssues = await searchAll(`project = ${key} AND (statusCategory != Done OR status = "Ready for Release")`, ["status", "summary", "issuelinks", "components", "created", "issuetype"]);
   const wipByStatus = {};
   for (const lane of WIP_LANES) wipByStatus[lane] = 0;
   let otherWipCount = 0;
@@ -333,6 +468,7 @@ async function analyzeProject(key, statusCategoryByName) {
     key: issue.key,
     summary: issue.fields.summary,
     status: issue.fields.status.name,
+    type: issue.fields.issuetype ? issue.fields.issuetype.name : null,
     ageDays: round1((now - new Date(issue.fields.created).getTime()) / 86400000),
   }));
   const oldestWipAgeDays = wipWithAge.length ? Math.max(...wipWithAge.map((w) => w.ageDays)) : null;
@@ -388,10 +524,11 @@ async function analyzeProject(key, statusCategoryByName) {
   // Rolling 8-week window, relative to right now.
   const windowIssues = await searchAll(
     `project = ${key} AND resolutiondate >= -${WINDOW_DAYS}d`,
-    ["created", "resolutiondate", "components", "status"],
+    ["created", "resolutiondate", "components", "status", "description"],
     "changelog"
   );
-  const analyzed = windowIssues.map((i) => analyzeIssue(i, statusCategoryByName));
+  const aiWorkedKeys = await aiWorkedIssueKeys(key);
+  const analyzed = windowIssues.map((i) => analyzeIssue(i, statusCategoryByName, aiWorkedKeys));
 
   // Weekly buckets: index 0 = oldest week (49-56 days ago), index 7 = this week (0-7 days ago).
   const buckets = Array.from({ length: 8 }, () => []);
@@ -426,9 +563,40 @@ async function analyzeProject(key, statusCategoryByName) {
   const overall = summarize(analyzed);
   const thisWeek = weekly[weekly.length - 1];
 
+  // Risk Status: tailored per project instead of one flat day-count ceiling
+  // applied to every team equally. Baseline is this project's own SLE85 (the
+  // 85th percentile cycle time over the full rolling 8-week population,
+  // computed above in summarize()). "At Risk" means fewer than 85% of the
+  // issues this team actually completed *this week* landed inside that
+  // team's own baseline -- i.e. the team is currently missing the bar it
+  // itself has been setting, not some arbitrary number applied to everyone.
+  const thisWeekWithCycleTime = buckets[7].filter((a) => a.cycleTimeDays !== null);
+  const thisWeekSleAdherencePct = thisWeekWithCycleTime.length
+    ? round1((thisWeekWithCycleTime.filter((a) => a.cycleTimeDays <= overall.sle85Days).length / thisWeekWithCycleTime.length) * 100)
+    : null;
+  let riskStatus;
+  if (overall.sle85Days === null) {
+    // No baseline yet (too little history in this window) -- fall back to a
+    // simple average-vs-8-day check so the card still shows something sensible.
+    riskStatus = overall.cycleTimeAvg !== null && overall.cycleTimeAvg > 8 ? "At Risk" : "OK";
+  } else if (thisWeekSleAdherencePct === null) {
+    // Nothing resolved this week yet -- not enough signal to call it "At
+    // Risk," so default to OK rather than raise a false alarm.
+    riskStatus = "OK";
+  } else {
+    riskStatus = thisWeekSleAdherencePct >= 85 ? "OK" : "At Risk";
+  }
+
   return {
     key,
     epics,
+    focusIntegrityActiveEpics,
+    focusIntegrityTotalEpics,
+    focusIntegrityHistory,
+    focusIntegrityWeekly,
+    sle85Days: overall.sle85Days,
+    thisWeekSleAdherencePct,
+    riskStatus,
     wipByStatus,
     wipTotal: wipIssues.length,
     dependencies,
@@ -454,27 +622,36 @@ async function analyzeProject(key, statusCategoryByName) {
 async function main() {
   const statusCategoryByName = await fetchStatusCategoryMap();
 
+  // This script overwrites data.json every run (every 3 hours, per the GitHub
+  // Action). Read whatever's already there once, up front, for two reasons:
+  // (1) hand-maintained "manual" fields (Focus Integrity note, Team Pulse
+  // fallback) need to survive being overwritten, and (2) each project's
+  // accumulated focusIntegrityHistory needs to be carried forward into this
+  // run so the rolling 8-week trend keeps building instead of resetting to
+  // a single point every time the Action runs.
+  const fs = require("fs");
+  let existingManual = {};
+  let existingProjectsByKey = {};
+  try {
+    const existingData = JSON.parse(fs.readFileSync("data.json", "utf8"));
+    existingManual = existingData.manual || {};
+    for (const p of existingData.projects || []) {
+      if (p && p.key) existingProjectsByKey[p.key] = p;
+    }
+  } catch {
+    // No existing data.json (first run) -- fall back to empty defaults below.
+  }
+
   const projects = [];
   for (const key of PROJECTS) {
     console.log(`Analyzing ${key}...`);
     try {
-      projects.push(await analyzeProject(key, statusCategoryByName));
+      const priorHistory = (existingProjectsByKey[key] && existingProjectsByKey[key].focusIntegrityHistory) || [];
+      projects.push(await analyzeProject(key, statusCategoryByName, priorHistory));
     } catch (err) {
       console.error(`Failed to analyze ${key}: ${err.message}`);
       projects.push({ key, error: err.message });
     }
-  }
-
-  // This script overwrites data.json every run (every 3 hours, per the GitHub
-  // Action), which used to wipe out any hand-edited "manual" fields. Read
-  // whatever's already there first so hand-maintained data -- Focus Integrity
-  // and Team Pulse -- survives.
-  const fs = require("fs");
-  let existingManual = {};
-  try {
-    existingManual = JSON.parse(fs.readFileSync("data.json", "utf8")).manual || {};
-  } catch {
-    // No existing data.json (first run) -- fall back to empty defaults below.
   }
 
   const out = {
