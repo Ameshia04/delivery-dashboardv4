@@ -83,6 +83,8 @@
     .epic-row-header .epic-key { font-weight: 700; }
     .epic-row-header .epic-summary { color: var(--muted); margin-left: 6px; }
     .epic-row-header .epic-pct { font-weight: 700; white-space: nowrap; }
+    .epic-row-due { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+    .epic-row-due.overdue { color: var(--red); font-weight: 600; }
     .epic-bar-track { background: var(--surface2); border-radius: 6px; height: 8px; overflow: hidden; }
     .epic-bar-fill { background: var(--accent); height: 100%; border-radius: 6px; }
     .epic-project-heading { font-size: 13px; font-weight: 700; margin: 16px 0 8px; }
@@ -1114,6 +1116,20 @@ function drawDepsDiagramArrows(edges, criticalEdges) {
 // Epics: renders a progress bar per Epic showing % of its child work items
 // (Stories/Tasks/Bugs, via Jira's parent field) that are Done. In the
 // all-projects view, epics are grouped under a heading per project.
+// Delivery date: Jira's native Epic "Due date" field -- the closest thing to
+// a target ship date this tool has without a formal roadmap field. Flags red
+// ("overdue") when that date has passed and the Epic still isn't 100% done;
+// otherwise shown as a plain muted line. Epics with nothing set in Jira show
+// an explicit "No delivery date set" rather than silently omitting the line,
+// so a missing date is visible, not just absent.
+function epicDueDateLine(e) {
+  if (!e.dueDate) return '<div class="epic-row-due">No delivery date set</div>';
+  const due = new Date(e.dueDate + 'T00:00:00');
+  const label = due.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const overdue = due.getTime() < Date.now() && (e.percentDone ?? 0) < 100;
+  return `<div class="epic-row-due ${overdue ? 'overdue' : ''}">Delivery date: ${label}${overdue ? ' (past due)' : ''}</div>`;
+}
+
 function epicRows(epics) {
   if (!epics || !epics.length) {
     return '<p style="color:var(--muted);margin-bottom:14px">No epics found</p>';
@@ -1124,6 +1140,7 @@ function epicRows(epics) {
         <span><span class="epic-key">${e.key}</span><span class="epic-summary">${e.summary || ''}</span></span>
         <span class="epic-pct">${fmt(e.percentDone,'%')}${e.childTotal !== null && e.childTotal !== undefined ? ` (${e.childDone}/${e.childTotal})` : ''}</span>
       </div>
+      ${epicDueDateLine(e)}
       <div class="epic-bar-track"><div class="epic-bar-fill" style="width:${e.percentDone ?? 0}%;background:${e.percentDone >= 100 ? 'var(--green)' : 'var(--accent)'}"></div></div>
     </div>
   `).join('');
