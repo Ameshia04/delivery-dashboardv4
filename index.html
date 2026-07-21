@@ -146,6 +146,12 @@
     }
     .deps-view-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
     .deps-view-btn:hover:not(.active) { border-color: var(--accent); color: var(--text); }
+    .view-toggle-divider { width: 1px; height: 18px; background: var(--border); margin: 0 6px; align-self: center; }
+    .deps-epic-label { font-size: 11px; color: var(--muted); align-self: center; }
+    .deps-epic-select {
+      background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 6px;
+      padding: 5px 10px; font-size: 12px; min-width: 220px;
+    }
     .deps-diagram-scroll { position: relative; overflow-x: auto; padding-bottom: 8px; }
     .deps-diagram-columns { display: flex; gap: 40px; align-items: flex-start; position: relative; z-index: 1; }
     .wave-column { display: flex; flex-direction: column; gap: 14px; min-width: 190px; }
@@ -155,11 +161,22 @@
     }
     .wave-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 12px; }
     .wave-card.critical { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+    .wave-card.external { border-style: dashed; }
     .wave-card-key { font-weight: 700; margin-bottom: 3px; }
+    .wave-card-tag { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 3px; }
     .wave-card-status { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
     .wave-card-summary { color: var(--muted); line-height: 1.4; }
     .deps-diagram-svg { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 0; }
     .deps-diagram-note { font-size: 11px; color: var(--muted); margin-top: 14px; }
+    .deps-chain-line { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    .deps-chain-line b { color: var(--accent); font-weight: 700; }
+    .deps-built-heading { font-size: 10px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.5px; margin: 16px 0 8px; }
+    .deps-built-row {
+      background: #10331f; border: 1px solid #1f5c37; border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;
+      font-size: 12px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;
+    }
+    .deps-built-key { font-weight: 700; color: var(--green); }
+    .deps-built-desc { color: var(--muted); font-size: 11px; }
 
     /* Export PDF: relies on the browser's native print-to-PDF (Ctrl/Cmd+P save
        target), so no extra libraries are needed. This stylesheet reformats the
@@ -242,6 +259,9 @@
       <div class="view-toggle" id="depsViewToggle">
         <button class="deps-view-btn active" data-mode="list" onclick="setDepsView('list')">List</button>
         <button class="deps-view-btn" data-mode="diagram" onclick="setDepsView('diagram')">Diagram</button>
+        <div class="view-toggle-divider" id="depsEpicDivider" style="display:none"></div>
+        <span class="deps-epic-label" id="depsEpicLabel" style="display:none">Epic</span>
+        <select id="depsEpicSelect" class="deps-epic-select" style="display:none" onchange="onDepsEpicChange()"></select>
       </div>
       <div id="depsBody">
         <div id="depsListView">
@@ -858,11 +878,13 @@ function renderDepsTable(rows) {
   document.getElementById('depsSummary').innerHTML = `<div class="deps-chip blue"><b>${rows.length}</b>Dependencies</div>`;
 }
 
-function renderDependencies(rows) {
+function renderDependencies(rows, epics, resolvedBlockers) {
   const deduped = dedupeDependencies(rows);
   LAST_DEPENDENCY_ROWS = deduped;
+  LAST_RESOLVED_BLOCKERS = resolvedBlockers || [];
   renderDepsTable(applyDepsFilter(deduped));
-  if (DEPS_VIEW_MODE === 'diagram') renderDepsDiagram(deduped);
+  populateDepsEpicSelect(epics || [], deduped);
+  if (DEPS_VIEW_MODE === 'diagram') renderDepsDiagramForSelectedEpic();
   return deduped;
 }
 
@@ -870,16 +892,54 @@ function renderDependencies(rows) {
 // Dependencies card. DEPS_VIEW_MODE tracks which view is showing;
 // LAST_DEPS_DIAGRAM holds the last-rendered edges/critical-path so arrows can
 // be redrawn (on window resize, or when the Overview tab becomes visible
-// again) without recomputing the whole graph.
+// again) without recomputing the whole graph. The Diagram view is further
+// scoped to a single Epic at a time (DEPS_SELECTED_EPIC) -- a project's full
+// dependency graph gets crowded and hard to read fast, so it's grouped by
+// whichever Epic the *blocked* ticket belongs to, with a "No Epic parent"
+// fallback bucket for edges Jira can't attribute to any Epic.
 let DEPS_VIEW_MODE = 'list';
 let LAST_DEPS_DIAGRAM = { edges: [], criticalEdges: new Set() };
+let LAST_RESOLVED_BLOCKERS = [];
+let DEPS_SELECTED_EPIC = null;
 
 function setDepsView(mode) {
   DEPS_VIEW_MODE = mode;
   document.getElementById('depsListView').style.display = mode === 'list' ? '' : 'none';
   document.getElementById('depsDiagramView').style.display = mode === 'diagram' ? '' : 'none';
   document.querySelectorAll('.deps-view-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-  if (mode === 'diagram') renderDepsDiagram(LAST_DEPENDENCY_ROWS);
+  document.getElementById('depsEpicDivider').style.display = mode === 'diagram' ? '' : 'none';
+  document.getElementById('depsEpicLabel').style.display = mode === 'diagram' ? '' : 'none';
+  document.getElementById('depsEpicSelect').style.display = mode === 'diagram' ? '' : 'none';
+  if (mode === 'diagram') renderDepsDiagramForSelectedEpic();
+}
+
+// Builds the Epic dropdown from whichever Epics actually have a dependency
+// edge attributed to them (no point listing Epics with nothing to show), plus
+// a "No Epic parent" option whenever at least one edge's blocked ticket has
+// no Epic (or its Epic couldn't be determined).
+function populateDepsEpicSelect(epics, deduped) {
+  const sel = document.getElementById('depsEpicSelect');
+  if (!sel) return;
+  const epicKeysWithDeps = new Set(deduped.map(d => d.blockedEpicKey).filter(Boolean));
+  const relevantEpics = epics.filter(e => epicKeysWithDeps.has(e.key)).sort((a, b) => a.key.localeCompare(b.key));
+  const hasUnassigned = deduped.some(d => !d.blockedEpicKey);
+  const options = relevantEpics.map(e => `<option value="${e.key}">${e.key} - ${(e.summary || '').slice(0, 40)}</option>`);
+  if (hasUnassigned || !options.length) options.push('<option value="__none__">No Epic parent</option>');
+  sel.innerHTML = options.join('');
+  DEPS_SELECTED_EPIC = relevantEpics[0] ? relevantEpics[0].key : '__none__';
+  sel.value = DEPS_SELECTED_EPIC;
+}
+
+function onDepsEpicChange() {
+  DEPS_SELECTED_EPIC = document.getElementById('depsEpicSelect').value;
+  renderDepsDiagramForSelectedEpic();
+}
+
+function renderDepsDiagramForSelectedEpic() {
+  const rows = LAST_DEPENDENCY_ROWS.filter(d =>
+    DEPS_SELECTED_EPIC === '__none__' ? !d.blockedEpicKey : d.blockedEpicKey === DEPS_SELECTED_EPIC
+  );
+  renderDepsDiagram(rows);
 }
 
 // Computes build-order "waves" from deduped blocker->blocked rows: Wave 1 =
@@ -895,8 +955,8 @@ function computeDependencyWaves(rows) {
   const nodes = new Map();
   const blockersOf = new Map();
   rows.forEach((r) => {
-    if (!nodes.has(r.blockerKey)) nodes.set(r.blockerKey, { key: r.blockerKey, summary: r.blockerSummary, status: r.blockerStatus });
-    if (!nodes.has(r.blockedKey)) nodes.set(r.blockedKey, { key: r.blockedKey, summary: r.blockedSummary, status: r.blockedStatus });
+    if (!nodes.has(r.blockerKey)) nodes.set(r.blockerKey, { key: r.blockerKey, summary: r.blockerSummary, status: r.blockerStatus, epicKey: r.blockerEpicKey || null });
+    if (!nodes.has(r.blockedKey)) nodes.set(r.blockedKey, { key: r.blockedKey, summary: r.blockedSummary, status: r.blockedStatus, epicKey: r.blockedEpicKey || null });
     if (!blockersOf.has(r.blockedKey)) blockersOf.set(r.blockedKey, []);
     blockersOf.get(r.blockedKey).push(r.blockerKey);
   });
@@ -920,22 +980,25 @@ function computeDependencyWaves(rows) {
   nodes.forEach((_, key) => { if (waveOf.get(key) > deepestWave) { deepestWave = waveOf.get(key); deepestKey = key; } });
   const criticalNodes = new Set();
   const criticalEdges = new Set();
+  const criticalChainReversed = [];
   let cur = deepestKey;
   while (cur) {
     criticalNodes.add(cur);
+    criticalChainReversed.push(cur);
     const blockers = blockersOf.get(cur) || [];
     let next = null, bestWave = -1;
     blockers.forEach((b) => { if (waveOf.get(b) > bestWave) { bestWave = waveOf.get(b); next = b; } });
     if (next) criticalEdges.add(`${next}->${cur}`);
     cur = next;
   }
+  const criticalChain = criticalChainReversed.reverse();
 
   const maxWave = Math.max(0, ...Array.from(waveOf.values()));
   const columns = Array.from({ length: maxWave + 1 }, () => []);
   nodes.forEach((n, key) => columns[waveOf.get(key)].push(n));
   columns.forEach((col) => col.sort((a, b) => a.key.localeCompare(b.key)));
 
-  return { columns, edges: rows.map((r) => ({ from: r.blockerKey, to: r.blockedKey })), criticalEdges, criticalNodes };
+  return { columns, edges: rows.map((r) => ({ from: r.blockerKey, to: r.blockedKey })), criticalEdges, criticalNodes, criticalChain };
 }
 
 function depsStatusColor(status) {
@@ -954,27 +1017,53 @@ function renderDepsDiagram(rows) {
     return;
   }
 
-  const { columns, edges, criticalEdges, criticalNodes } = computeDependencyWaves(rows);
+  const { columns, edges, criticalEdges, criticalNodes, criticalChain } = computeDependencyWaves(rows);
+
+  const chainHtml = criticalChain.length > 1
+    ? `<div class="deps-chain-line">Longest chain: <b>${criticalChain.join(' &rarr; ')}</b></div>`
+    : '';
+
+  const nodeKeysInView = new Set(columns.flat().map((n) => n.key));
+  const relevantBuilt = (LAST_RESOLVED_BLOCKERS || []).filter((r) => nodeKeysInView.has(r.blockedKey));
+  const builtHtml = relevantBuilt.length
+    ? `
+      <div class="deps-built-heading">Already built &middot; no longer blocking</div>
+      ${relevantBuilt.map((r) => `
+        <div class="deps-built-row">
+          <span class="deps-built-key">${r.blockerKey}</span>
+          <span class="deps-built-desc">${r.blockerSummary || 'Done'} &mdash; was blocking ${r.blockedKey}</span>
+        </div>
+      `).join('')}
+    `
+    : '';
 
   container.innerHTML = `
+    ${chainHtml}
     <div class="deps-diagram-scroll">
       <div class="deps-diagram-columns">
         ${columns.map((col, i) => `
           <div class="wave-column">
             <div class="wave-column-header">Wave ${i + 1}</div>
-            ${col.map((n) => `
-              <div class="wave-card ${criticalNodes.has(n.key) ? 'critical' : ''}" data-key="${n.key}">
+            ${col.map((n) => {
+              const differentEpic = DEPS_SELECTED_EPIC && DEPS_SELECTED_EPIC !== '__none__' && n.epicKey && n.epicKey !== DEPS_SELECTED_EPIC;
+              const unknownEpic = DEPS_SELECTED_EPIC && DEPS_SELECTED_EPIC !== '__none__' && !n.epicKey;
+              const tag = differentEpic ? '&middot; different Epic' : (unknownEpic ? '&middot; external ticket' : '');
+              return `
+              <div class="wave-card ${criticalNodes.has(n.key) ? 'critical' : ''} ${tag ? 'external' : ''}" data-key="${n.key}">
                 <div class="wave-card-key">${n.key}</div>
+                ${tag ? `<div class="wave-card-tag">${tag}</div>` : ''}
                 <div class="wave-card-status" style="color:${depsStatusColor(n.status)}">${n.status || '—'}</div>
                 <div class="wave-card-summary">${(n.summary || '').slice(0, 70)}</div>
               </div>
-            `).join('')}
+            `;
+            }).join('')}
           </div>
         `).join('')}
       </div>
       <svg class="deps-diagram-svg" id="depsDiagramSvg"></svg>
     </div>
-    <p class="deps-diagram-note">Wave 1 = issues with no open blockers; each later wave = build order once its own blockers clear. <span style="color:var(--accent)">Highlighted</span> cards/arrows are the longest blocker chain in this project's graph. Diagram shows all open dependencies -- the blocker filter above only applies to the List view.</p>
+    ${builtHtml}
+    <p class="deps-diagram-note">Wave 1 = issues with no open blockers; each later wave = build order once its own blockers clear. <span style="color:var(--accent)">Highlighted</span> cards/arrows are the longest blocker chain in this Epic's graph. Dashed cards belong to a different (or unknown) Epic but still block work in this one. Diagram shows one Epic at a time -- the blocker filter above only applies to the List view.</p>
   `;
 
   LAST_DEPS_DIAGRAM = { edges, criticalEdges };
@@ -1160,7 +1249,7 @@ function renderSingleProject(p) {
   document.getElementById('depsCard').style.display = '';
   document.getElementById('agingCard').style.display = '';
   document.getElementById('teamPulseCard').style.display = '';
-  renderDependencies(p.dependencies || []);
+  renderDependencies(p.dependencies || [], p.epics || [], p.resolvedBlockers || []);
 
   // Epics: only shown in single-project view, on the Project Portfolio tab.
   document.getElementById('portfolioEpicsCard').style.display = '';
