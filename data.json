@@ -1,11 +1,1194 @@
 {
-  "generatedAt": "2026-07-26T06:03:10.500Z",
+  "generatedAt": "2026-07-26T10:44:55.524Z",
   "windowDays": 56,
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
-      "error": "Jira search failed: 500 {\"message\":\"Caught PSQLException for select /* called at com.atlassian.jira.issue.request.oldstores.IssueStoreImpl.lambda$fetchIssues$7(IssueStoreImpl.java:145) */\\\"ISSUE\\\".\\\"id\\\", \\\"ISSUE\\\".\\\"pkey\\\", \\\"ISSUE\\\".\\\"issuenum\\\", \\\"ISSUE\\\".\\\"project\\\", \\\"ISSUE\\\".\\\"reporter\\\", \\\"ISSUE\\\".\\\"assignee\\\", \\\"ISSUE\\\".\\\"creator\\\", \\\"ISSUE\\\".\\\"issuetype\\\", \\\"ISSUE\\\".\\\"summary\\\", \\\"ISSUE\\\".\\\"description\\\", \\\"ISSUE\\\".\\\"environment\\\", \\\"ISSUE\\\".\\\"priority\\\", \\\"ISSUE\\\".\\\"resolution\\\", \\\"ISSUE\\\".\\\"issuestatus\\\", \\\"ISSUE\\\".\\\"created\\\", \\\"ISSUE\\\".\\\"updated\\\", \\\"ISSUE\\\".\\\"duedate\\\", \\\"ISSUE\\\".\\\"resolutiondate\\\", \\\"ISSUE\\\".\\\"votes\\\", \\\"ISSUE\\\".\\\"watches\\\", \\\"ISSUE\\\".\\\"timeoriginalestimate\\\", \\\"ISSUE\\\".\\\"timeestimate\\\", \\\"ISSUE\\\".\\\"timespent\\\", \\\"ISSUE\\\".\\\"workflow_id\\\", \\\"ISSUE\\\".\\\"security\\\", \\\"ISSUE\\\".\\\"denormalised_subtask_parent\\\", \\\"ISSUE\\\".\\\"subtask_parent_id\\\", \\\"ISSUE\\\".\\\"effective_subtask_parent_id\\\", \\\"ISSUE\\\".\\\"fixfor\\\", \\\"ISSUE\\\".\\\"component\\\", \\\"ISSUE\\\".\\\"description_adf\\\", \\\"ISSUE\\\".\\\"environment_adf\\\", \\\"ISSUE\\\".\\\"external_uuid\\\", \\\"ISSUE\\\".\\\"read_external\\\", \\\"ISSUE\\\".\\\"description_adf_id\\\", \\\"ISSUE\\\".\\\"description_adf_version\\\", \\\"ISSUE\\\".\\\"environment_adf_id\\\", \\\"ISSUE\\\".\\\"environment_adf_version\\\", \\\"ISSUE\\\".\\\"version\\\", \\\"ISSUE\\\".\\\"lifecycle_state\\\", \\\"ISSUE\\\".\\\"soft_archived\\\", \\\"ISSUE\\\".\\\"soft_archived_by\\\", \\\"ISSUE\\\".\\\"soft_archived_date\\\"\\nfrom \\\"public\\\".\\\"jiraissue\\\" \\\"ISSUE\\\"\\nwhere \\\"ISSUE\\\".\\\"id\\\" = ANY (?)\",\"status-code\":500,\"stack-trace\":\"\"}"
+      "epics": [
+        {
+          "key": "INV-964",
+          "summary": "Addl. Enhancements - Automated Mapping Generation (MVP)",
+          "status": "To Do",
+          "childTotal": 5,
+          "childDone": 2,
+          "childActive": 0,
+          "percentDone": 40,
+          "dueDate": null
+        },
+        {
+          "key": "INV-958",
+          "summary": "[Exp Mgmt] Backend Migration to PHP",
+          "status": "In Progress",
+          "childTotal": 6,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": null
+        },
+        {
+          "key": "INV-939",
+          "summary": "Company Enhancements",
+          "status": "To Do",
+          "childTotal": 1,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": null
+        },
+        {
+          "key": "INV-934",
+          "summary": "Expense Itinerary in Mobile — APS-Online MileageCalcMap migration (Strategy 1)",
+          "status": "In Progress",
+          "childTotal": 1,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": null
+        },
+        {
+          "key": "INV-910",
+          "summary": "INV Q2 2026 bugs",
+          "status": "To Do",
+          "childTotal": 0,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "2026-06-30"
+        },
+        {
+          "key": "INV-900",
+          "summary": "EFTPS Integration",
+          "status": "To Do",
+          "childTotal": 0,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": null
+        },
+        {
+          "key": "INV-857",
+          "summary": "Company Users Management",
+          "status": "To Do",
+          "childTotal": 4,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-856",
+          "summary": "Tristate/Kotapay Integration",
+          "status": "To Do",
+          "childTotal": 4,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-838",
+          "summary": "[Exp Mgmt] Enhancements & Bugfixes - 2026",
+          "status": "In Progress",
+          "childTotal": 8,
+          "childDone": 8,
+          "childActive": 0,
+          "percentDone": 100,
+          "dueDate": "2026-12-31"
+        },
+        {
+          "key": "INV-789",
+          "summary": "[VAR App] Additional Insights",
+          "status": "To Do",
+          "childTotal": 3,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-784",
+          "summary": "3. Document Templates & Automation Rules",
+          "status": "In Progress",
+          "childTotal": 12,
+          "childDone": 11,
+          "childActive": 0,
+          "percentDone": 91.7,
+          "dueDate": "2026-09-29"
+        },
+        {
+          "key": "INV-653",
+          "summary": "Project Management & GuideCX integration",
+          "status": "To Do",
+          "childTotal": 7,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-651",
+          "summary": "3. Onboarding Packet Management",
+          "status": "In Progress",
+          "childTotal": 10,
+          "childDone": 7,
+          "childActive": 1,
+          "percentDone": 70,
+          "dueDate": "2026-09-29"
+        },
+        {
+          "key": "INV-618",
+          "summary": "0. Architecture & Core Components",
+          "status": "In Progress",
+          "childTotal": 44,
+          "childDone": 41,
+          "childActive": 3,
+          "percentDone": 93.2,
+          "dueDate": "2026-09-26"
+        },
+        {
+          "key": "INV-604",
+          "summary": "4. Due Diligence & Project Management",
+          "status": "In Progress",
+          "childTotal": 20,
+          "childDone": 12,
+          "childActive": 1,
+          "percentDone": 60,
+          "dueDate": "2026-09-29"
+        },
+        {
+          "key": "INV-526",
+          "summary": "Departments allocations",
+          "status": "In Progress",
+          "childTotal": 10,
+          "childDone": 6,
+          "childActive": 0,
+          "percentDone": 60,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-436",
+          "summary": "Expense Management in ReactJS - eSS/mSS",
+          "status": "To Do",
+          "childTotal": 7,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-427",
+          "summary": "Expense Management in ReactJS - Online",
+          "status": "In Progress",
+          "childTotal": 10,
+          "childDone": 6,
+          "childActive": 0,
+          "percentDone": 60,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-412",
+          "summary": "Tracking Implementation",
+          "status": "To Do",
+          "childTotal": 0,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-315",
+          "summary": "[Shift Trading] Enhancements & Bugfixes - Insights",
+          "status": "To Do",
+          "childTotal": 5,
+          "childDone": 3,
+          "childActive": 0,
+          "percentDone": 60,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-116",
+          "summary": "[Expense Mgmt] Enhancements & Bugfixes - Insights",
+          "status": "To Do",
+          "childTotal": 17,
+          "childDone": 8,
+          "childActive": 0,
+          "percentDone": 47.1,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-98",
+          "summary": "Alerts implementation",
+          "status": "To Do",
+          "childTotal": 3,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-74",
+          "summary": "Corporate card management",
+          "status": "To Do",
+          "childTotal": 0,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-71",
+          "summary": "Manage multiple expense policies",
+          "status": "To Do",
+          "childTotal": 3,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        },
+        {
+          "key": "INV-70",
+          "summary": "Multi-level validation for Expense Management",
+          "status": "To Do",
+          "childTotal": 3,
+          "childDone": 0,
+          "childActive": 0,
+          "percentDone": 0,
+          "dueDate": "1999-12-31"
+        }
+      ],
+      "focusIntegrityActiveEpics": 3,
+      "focusIntegrityTotalEpics": 25,
+      "focusIntegrityWeekly": [
+        4,
+        4,
+        4,
+        3,
+        3,
+        2,
+        5,
+        3
+      ],
+      "contextSwitchWeeklyAvg": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1.3
+      ],
+      "contextSwitchThisWeekAvg": 1.3,
+      "contextSwitchFlagged": [
+        {
+          "name": "Mohammad Tamimi",
+          "epicCount": 2,
+          "epicKeys": [
+            "INV-604",
+            "INV-618"
+          ]
+        }
+      ],
+      "contextSwitchThreshold": 2,
+      "sle85Days": 55.3,
+      "thisWeekSleAdherencePct": 100,
+      "riskStatus": "OK",
+      "wipByStatus": {
+        "Backlog": 45,
+        "To Do": 24,
+        "Ready for Development": 21,
+        "In Development": 18,
+        "Ready for Code Review": 0,
+        "In QA": 1,
+        "Acceptance": 0,
+        "Done": 10,
+        "Other": 11
+      },
+      "wipTotal": 130,
+      "dependencies": [
+        {
+          "blockerKey": "INV-1000",
+          "blockerSummary": "Quick Expense creation + management → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-994",
+          "blockedSummary": "eSS employee dashboard → React",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-999",
+          "blockerSummary": "mSS manager modal surface → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-993",
+          "blockedSummary": "Online modal surface → React (shared dialog build)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-999",
+          "blockerSummary": "mSS manager modal surface → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-998",
+          "blockedSummary": "mSS manager detail view → React",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-998",
+          "blockerSummary": "mSS manager detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-992",
+          "blockedSummary": "Online Expense Report Details (4007) → React (incl. flag + shared sub-component layer)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-998",
+          "blockerSummary": "mSS manager detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-993",
+          "blockedSummary": "Online modal surface → React (shared dialog build)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-998",
+          "blockerSummary": "mSS manager detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-997",
+          "blockedSummary": "mSS manager review queue → React",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-997",
+          "blockerSummary": "mSS manager review queue → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-992",
+          "blockedSummary": "Online Expense Report Details (4007) → React (incl. flag + shared sub-component layer)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-996",
+          "blockerSummary": "eSS employee modal surface → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-993",
+          "blockedSummary": "Online modal surface → React (shared dialog build)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-996",
+          "blockerSummary": "eSS employee modal surface → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-995",
+          "blockedSummary": "eSS employee report/expense detail view → React",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-995",
+          "blockerSummary": "eSS employee report/expense detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-992",
+          "blockedSummary": "Online Expense Report Details (4007) → React (incl. flag + shared sub-component layer)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-995",
+          "blockerSummary": "eSS employee report/expense detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-993",
+          "blockedSummary": "Online modal surface → React (shared dialog build)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-995",
+          "blockerSummary": "eSS employee report/expense detail view → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-994",
+          "blockedSummary": "eSS employee dashboard → React",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-994",
+          "blockerSummary": "eSS employee dashboard → React",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-436",
+          "blockedKey": "INV-992",
+          "blockedSummary": "Online Expense Report Details (4007) → React (incl. flag + shared sub-component layer)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-993",
+          "blockerSummary": "Online modal surface → React (shared dialog build)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-427",
+          "blockedKey": "INV-992",
+          "blockedSummary": "Online Expense Report Details (4007) → React (incl. flag + shared sub-component layer)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-989",
+          "blockerSummary": "Silent-failure VERIFY confirmation (pre-flip gate)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-991",
+          "blockedSummary": "Cutover + soak",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-990",
+          "blockerSummary": "Full functional regression pass (zero regressions)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-991",
+          "blockedSummary": "Cutover + soak",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-986",
+          "blockerSummary": "Dev verification + remediation of the ARCH-566 branch",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-990",
+          "blockedSummary": "Full functional regression pass (zero regressions)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-987",
+          "blockerSummary": "PHP service/expense backend parity finalization (including the sweep)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-990",
+          "blockedSummary": "Full functional regression pass (zero regressions)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-988",
+          "blockerSummary": "EXPENSE_USE_PHP_SERVICE flag + dual-path routing (Online + Wombat)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-990",
+          "blockedSummary": "Full functional regression pass (zero regressions)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "BOA-1944",
+          "blockerSummary": "APS-Watcher repoint to the PHP sweep, under a separate dynamic flag",
+          "blockerStatus": "Estimate",
+          "blockerProject": "BOA",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-990",
+          "blockedSummary": "Full functional regression pass (zero regressions)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-986",
+          "blockerSummary": "Dev verification + remediation of the ARCH-566 branch",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-989",
+          "blockedSummary": "Silent-failure VERIFY confirmation (pre-flip gate)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-987",
+          "blockerSummary": "PHP service/expense backend parity finalization (including the sweep)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-989",
+          "blockedSummary": "Silent-failure VERIFY confirmation (pre-flip gate)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-986",
+          "blockerSummary": "Dev verification + remediation of the ARCH-566 branch",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-988",
+          "blockedSummary": "EXPENSE_USE_PHP_SERVICE flag + dual-path routing (Online + Wombat)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-986",
+          "blockerSummary": "Dev verification + remediation of the ARCH-566 branch",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-987",
+          "blockedSummary": "PHP service/expense backend parity finalization (including the sweep)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-958"
+        },
+        {
+          "blockerKey": "INV-986",
+          "blockerSummary": "Dev verification + remediation of the ARCH-566 branch",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-958",
+          "blockedKey": "BOA-1944",
+          "blockedSummary": "APS-Watcher repoint to the PHP sweep, under a separate dynamic flag",
+          "blockedStatus": "Estimate",
+          "blockedProject": "BOA",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-768",
+          "blockerSummary": "Create/Edit an automation rule",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-982",
+          "blockerSummary": "Generate an initial mapping on template upload (AI-assisted)",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-983",
+          "blockerSummary": "Upload a mapping file to override a template's mapping",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-669",
+          "blockerSummary": "Automatically generate the list of documents to include in the onboarding packet",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-959",
+          "blockerSummary": "Update the \"Documents\" status on the APS landing page",
+          "blockerStatus": "In QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-962",
+          "blockerSummary": "Display the \"Onboarding Packet\" section in the company recap",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-964",
+          "blockedKey": "INV-982",
+          "blockedSummary": "Generate an initial mapping on template upload (AI-assisted)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-964",
+          "blockedKey": "INV-983",
+          "blockedSummary": "Upload a mapping file to override a template's mapping",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-964",
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-975",
+          "blockedSummary": "KYC — Consent-gated Account Verification generation",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-976",
+          "blockedSummary": "KYC — Real consent in the Account Verification (CBV) request",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-977",
+          "blockedSummary": "KYC — Consent form tile on the company recap",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-978",
+          "blockedSummary": "KYC — KYC task status from report completion",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-979",
+          "blockedSummary": "KYC — Finalize generation/rendering/save engine (integration + hardening)",
+          "blockedStatus": "In Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-979",
+          "blockerSummary": "KYC — Finalize generation/rendering/save engine (integration + hardening)",
+          "blockerStatus": "In Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-926",
+          "blockedSummary": "[QA Testing] KYC Verification (End-to-End)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-977",
+          "blockerSummary": "KYC — Consent form tile on the company recap",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-971",
+          "blockedSummary": "KYC — Consent onboarding form (#7 Consent for KYB/KYC Verifications)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-976",
+          "blockerSummary": "KYC — Real consent in the Account Verification (CBV) request",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-971",
+          "blockedSummary": "KYC — Consent onboarding form (#7 Consent for KYB/KYC Verifications)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-975",
+          "blockerSummary": "KYC — Consent-gated Account Verification generation",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-971",
+          "blockedSummary": "KYC — Consent onboarding form (#7 Consent for KYB/KYC Verifications)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-971",
+          "blockerSummary": "KYC — Consent onboarding form (#7 Consent for KYB/KYC Verifications)",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-974",
+          "blockedSummary": "KYC — Foundation: consent table + onboarding-form-type registration",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-977",
+          "blockerSummary": "KYC — Consent form tile on the company recap",
+          "blockerStatus": "Ready for QA",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-974",
+          "blockedSummary": "KYC — Foundation: consent table + onboarding-form-type registration",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-961",
+          "blockerSummary": "Display the KYC details in the company recap",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-978",
+          "blockedSummary": "KYC — KYC task status from report completion",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-980",
+          "blockerSummary": "KYC — UAT to Live validation + E2E QA coordination",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-961",
+          "blockedSummary": "Display the KYC details in the company recap",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-979",
+          "blockerSummary": "KYC — Finalize generation/rendering/save engine (integration + hardening)",
+          "blockerStatus": "In Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-928",
+          "blockedSummary": "KYC — Save to Documents",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-926",
+          "blockerSummary": "[QA Testing] KYC Verification (End-to-End)",
+          "blockerStatus": "Ready for Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-928",
+          "blockedSummary": "KYC — Save to Documents",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-979",
+          "blockerSummary": "KYC — Finalize generation/rendering/save engine (integration + hardening)",
+          "blockerStatus": "In Development",
+          "blockerProject": "INV",
+          "blockerEpicKey": null,
+          "blockedKey": "INV-924",
+          "blockedSummary": "KYC — Generate Report & Preview",
+          "blockedStatus": "Ready for Release",
+          "blockedProject": "INV",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-924",
+          "blockerSummary": "KYC — Generate Report & Preview",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-604",
+          "blockedKey": "INV-926",
+          "blockedSummary": "[QA Testing] KYC Verification (End-to-End)",
+          "blockedStatus": "Ready for Development",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-922",
+          "blockerSummary": "Prevent users from generating the onboarding packet if the necessary forms have not been submitted",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-651",
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-678",
+          "blockerSummary": "Void or replace a sent onboarding packet",
+          "blockerStatus": "Ready for Release",
+          "blockerProject": "INV",
+          "blockerEpicKey": "INV-651",
+          "blockedKey": "INV-985",
+          "blockedSummary": "Finish-line validation &amp; QA pass (feature-complete + QA-passed, auth-on)",
+          "blockedStatus": "Ready for QA",
+          "blockedProject": "INV",
+          "blockedEpicKey": null
+        }
+      ],
+      "dependencyCount": 53,
+      "resolvedBlockers": [
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockedKey": "INV-985",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-678",
+          "blockerSummary": "Void or replace a sent onboarding packet",
+          "blockedKey": "INV-985",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-922",
+          "blockerSummary": "Prevent users from generating the onboarding packet if the necessary forms have not been submitted",
+          "blockedKey": "INV-985",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockedKey": "INV-983",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-984",
+          "blockerSummary": "Shared AI foundation: schema, owl↔ai API-key auth, flag-gating, dead-stack removal",
+          "blockedKey": "INV-982",
+          "blockedEpicKey": "INV-964"
+        },
+        {
+          "blockerKey": "INV-961",
+          "blockerSummary": "Display the KYC details in the company recap",
+          "blockedKey": "INV-978",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "ARCH-580",
+          "blockerSummary": "Implement internal PDF generation service (Gotenberg)",
+          "blockedKey": "INV-963",
+          "blockedEpicKey": null
+        },
+        {
+          "blockerKey": "INV-924",
+          "blockerSummary": "KYC — Generate Report & Preview",
+          "blockedKey": "INV-926",
+          "blockedEpicKey": "INV-604"
+        },
+        {
+          "blockerKey": "INV-782",
+          "blockerSummary": "Step 4 - Track the Document Signatures",
+          "blockedKey": "INV-669",
+          "blockedEpicKey": "INV-651"
+        },
+        {
+          "blockerKey": "API-365",
+          "blockerSummary": "[Expense Management] Assign Departments in the Expense Report",
+          "blockedKey": "INV-532",
+          "blockedEpicKey": "INV-526"
+        },
+        {
+          "blockerKey": "INV-131",
+          "blockerSummary": "Add comments to an Expense Report (API Integration)",
+          "blockedKey": "INV-181",
+          "blockedEpicKey": "INV-116"
+        },
+        {
+          "blockerKey": "API-223",
+          "blockerSummary": "[Expense] Expenses Endpoints for Expense Management",
+          "blockedKey": "INV-181",
+          "blockedEpicKey": "INV-116"
+        },
+        {
+          "blockerKey": "API-301",
+          "blockerSummary": "[Expense Management] Endpoints to Unlock All Reports",
+          "blockedKey": "INV-107",
+          "blockedEpicKey": "INV-71"
+        }
+      ],
+      "oldestWipAgeDays": 880.5,
+      "agingWipCount": 100,
+      "agingWipIssues": [
+        {
+          "key": "INV-30",
+          "summary": "Copy an expense",
+          "status": "Backlog",
+          "type": "Story",
+          "ageDays": 880.5
+        },
+        {
+          "key": "INV-29",
+          "summary": "Copy an Expense Report",
+          "status": "Backlog",
+          "type": "Story",
+          "ageDays": 880.5
+        },
+        {
+          "key": "INV-44",
+          "summary": "Implement a validation process - with org chart",
+          "status": "Backlog",
+          "type": "Story",
+          "ageDays": 878.5
+        },
+        {
+          "key": "INV-47",
+          "summary": "Get automated warnings for unusual expenses (amounts...)",
+          "status": "Backlog",
+          "type": "Story",
+          "ageDays": 876.6
+        },
+        {
+          "key": "INV-66",
+          "summary": "View an Expense History",
+          "status": "Backlog",
+          "type": "Story",
+          "ageDays": 872.5
+        }
+      ],
+      "windowDays": 56,
+      "cycleTimeDays": {
+        "avg": 40.6,
+        "median": 21.4,
+        "sampleSize": 67
+      },
+      "leadTimeDays": {
+        "avg": 130,
+        "median": 61.8,
+        "sampleSize": 77
+      },
+      "flowEfficiencyPct": 31.2,
+      "throughput7d": 11,
+      "throughputWindowTotal": 77,
+      "throughputAvgPerWeek": 9.6,
+      "qualityLoopbackRatePct": 37.7,
+      "qualityLoopbackCount": 29,
+      "qualityLoopbackSampleSize": 77,
+      "aiLeverageRatePct": 9.1,
+      "weekly": [
+        {
+          "label": "May 31–Jun 7",
+          "weekStart": "2026-05-31T10:43:28.709Z",
+          "weekEnd": "2026-06-07T10:43:28.709Z",
+          "throughput": 10,
+          "cycleTimeAvg": 56.8,
+          "leadTimeAvg": 112.6,
+          "flowEfficiencyPct": 50.4,
+          "qualityLoopbackRatePct": 10,
+          "qualityLoopbackCount": 1,
+          "qualityLoopbackSampleSize": 10,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jun 7–Jun 14",
+          "weekStart": "2026-06-07T10:43:28.709Z",
+          "weekEnd": "2026-06-14T10:43:28.709Z",
+          "throughput": 7,
+          "cycleTimeAvg": 20.9,
+          "leadTimeAvg": 119.9,
+          "flowEfficiencyPct": 17.4,
+          "qualityLoopbackRatePct": 57.1,
+          "qualityLoopbackCount": 4,
+          "qualityLoopbackSampleSize": 7,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jun 14–Jun 21",
+          "weekStart": "2026-06-14T10:43:28.709Z",
+          "weekEnd": "2026-06-21T10:43:28.709Z",
+          "throughput": 9,
+          "cycleTimeAvg": 22.2,
+          "leadTimeAvg": 80.4,
+          "flowEfficiencyPct": 27.6,
+          "qualityLoopbackRatePct": 44.4,
+          "qualityLoopbackCount": 4,
+          "qualityLoopbackSampleSize": 9,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jun 21–Jun 28",
+          "weekStart": "2026-06-21T10:43:28.709Z",
+          "weekEnd": "2026-06-28T10:43:28.709Z",
+          "throughput": 11,
+          "cycleTimeAvg": 15.9,
+          "leadTimeAvg": 81.5,
+          "flowEfficiencyPct": 19.5,
+          "qualityLoopbackRatePct": 36.4,
+          "qualityLoopbackCount": 4,
+          "qualityLoopbackSampleSize": 11,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jun 28–Jul 5",
+          "weekStart": "2026-06-28T10:43:28.709Z",
+          "weekEnd": "2026-07-05T10:43:28.709Z",
+          "throughput": 11,
+          "cycleTimeAvg": 44.5,
+          "leadTimeAvg": 134.7,
+          "flowEfficiencyPct": 33,
+          "qualityLoopbackRatePct": 36.4,
+          "qualityLoopbackCount": 4,
+          "qualityLoopbackSampleSize": 11,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jul 5–Jul 12",
+          "weekStart": "2026-07-05T10:43:28.709Z",
+          "weekEnd": "2026-07-12T10:43:28.709Z",
+          "throughput": 10,
+          "cycleTimeAvg": 84.7,
+          "leadTimeAvg": 202.9,
+          "flowEfficiencyPct": 41.7,
+          "qualityLoopbackRatePct": 50,
+          "qualityLoopbackCount": 5,
+          "qualityLoopbackSampleSize": 10,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jul 12–Jul 19",
+          "weekStart": "2026-07-12T10:43:28.709Z",
+          "weekEnd": "2026-07-19T10:43:28.709Z",
+          "throughput": 8,
+          "cycleTimeAvg": 37.4,
+          "leadTimeAvg": 70.4,
+          "flowEfficiencyPct": 53.1,
+          "qualityLoopbackRatePct": 37.5,
+          "qualityLoopbackCount": 3,
+          "qualityLoopbackSampleSize": 8,
+          "aiLeverageRatePct": 0
+        },
+        {
+          "label": "Jul 19–Jul 26",
+          "weekStart": "2026-07-19T10:43:28.709Z",
+          "weekEnd": "2026-07-26T10:43:28.709Z",
+          "throughput": 11,
+          "cycleTimeAvg": 17.9,
+          "leadTimeAvg": 213.7,
+          "flowEfficiencyPct": 8.4,
+          "qualityLoopbackRatePct": 36.4,
+          "qualityLoopbackCount": 4,
+          "qualityLoopbackSampleSize": 11,
+          "aiLeverageRatePct": 63.6
+        }
+      ]
     },
     {
       "key": "APCOM",
@@ -797,7 +1980,7 @@
           "blockedEpicKey": "APCOM-65"
         }
       ],
-      "oldestWipAgeDays": 2076.3,
+      "oldestWipAgeDays": 2076.5,
       "agingWipCount": 90,
       "agingWipIssues": [
         {
@@ -805,35 +1988,35 @@
           "summary": "Intacct - Improvements",
           "status": "In Progress",
           "type": "Epic",
-          "ageDays": 2076.3
+          "ageDays": 2076.5
         },
         {
           "key": "APCOM-68",
           "summary": "Refactoring Token Management",
           "status": "In Progress",
           "type": "Epic",
-          "ageDays": 1387.7
+          "ageDays": 1387.9
         },
         {
           "key": "APCOM-43",
           "summary": "\"Enable Intacct Integration\" doesn't always add the generic integration",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 1254.4
+          "ageDays": 1254.6
         },
         {
           "key": "APCOM-31",
           "summary": "Partner API",
           "status": "To Do",
           "type": "Project",
-          "ageDays": 620.5
+          "ageDays": 620.7
         },
         {
           "key": "APCOM-2",
           "summary": "More user info pushed to ZD in thesync.",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 585.6
+          "ageDays": 585.8
         }
       ],
       "windowDays": 56,
@@ -858,8 +2041,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:01:38.906Z",
-          "weekEnd": "2026-06-07T06:01:38.906Z",
+          "weekStart": "2026-05-31T10:43:44.372Z",
+          "weekEnd": "2026-06-07T10:43:44.372Z",
           "throughput": 8,
           "cycleTimeAvg": 29.9,
           "leadTimeAvg": 179.1,
@@ -871,8 +2054,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:01:38.906Z",
-          "weekEnd": "2026-06-14T06:01:38.906Z",
+          "weekStart": "2026-06-07T10:43:44.372Z",
+          "weekEnd": "2026-06-14T10:43:44.372Z",
           "throughput": 8,
           "cycleTimeAvg": 11.9,
           "leadTimeAvg": 146.6,
@@ -884,8 +2067,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:01:38.906Z",
-          "weekEnd": "2026-06-21T06:01:38.906Z",
+          "weekStart": "2026-06-14T10:43:44.372Z",
+          "weekEnd": "2026-06-21T10:43:44.372Z",
           "throughput": 15,
           "cycleTimeAvg": 10.2,
           "leadTimeAvg": 97.7,
@@ -897,8 +2080,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:01:38.906Z",
-          "weekEnd": "2026-06-28T06:01:38.906Z",
+          "weekStart": "2026-06-21T10:43:44.372Z",
+          "weekEnd": "2026-06-28T10:43:44.372Z",
           "throughput": 25,
           "cycleTimeAvg": 11.6,
           "leadTimeAvg": 16.6,
@@ -910,8 +2093,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:01:38.906Z",
-          "weekEnd": "2026-07-05T06:01:38.906Z",
+          "weekStart": "2026-06-28T10:43:44.372Z",
+          "weekEnd": "2026-07-05T10:43:44.372Z",
           "throughput": 8,
           "cycleTimeAvg": 14.7,
           "leadTimeAvg": 70.8,
@@ -923,8 +2106,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:01:38.906Z",
-          "weekEnd": "2026-07-12T06:01:38.906Z",
+          "weekStart": "2026-07-05T10:43:44.372Z",
+          "weekEnd": "2026-07-12T10:43:44.372Z",
           "throughput": 6,
           "cycleTimeAvg": 19,
           "leadTimeAvg": 36.4,
@@ -936,8 +2119,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:01:38.906Z",
-          "weekEnd": "2026-07-19T06:01:38.906Z",
+          "weekStart": "2026-07-12T10:43:44.372Z",
+          "weekEnd": "2026-07-19T10:43:44.372Z",
           "throughput": 6,
           "cycleTimeAvg": 42.9,
           "leadTimeAvg": 54,
@@ -949,8 +2132,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:01:38.906Z",
-          "weekEnd": "2026-07-26T06:01:38.906Z",
+          "weekStart": "2026-07-19T10:43:44.372Z",
+          "weekEnd": "2026-07-26T10:43:44.372Z",
           "throughput": 11,
           "cycleTimeAvg": 13.2,
           "leadTimeAvg": 32.1,
@@ -1269,7 +2452,7 @@
           "blockedEpicKey": "EMP-762"
         }
       ],
-      "oldestWipAgeDays": 744.6,
+      "oldestWipAgeDays": 744.8,
       "agingWipCount": 30,
       "agingWipIssues": [
         {
@@ -1277,35 +2460,35 @@
           "summary": "Scheduling",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 744.6
+          "ageDays": 744.8
         },
         {
           "key": "EMP-472",
           "summary": "Scheduling Redesign - Post-MVP",
           "status": "In Progress",
           "type": "Project",
-          "ageDays": 621.7
+          "ageDays": 621.9
         },
         {
           "key": "EMP-509",
           "summary": "APS Payroll - Manager section for Employee Documents",
           "status": "Estimate",
           "type": "Story",
-          "ageDays": 561.4
+          "ageDays": 561.6
         },
         {
           "key": "EMP-579",
           "summary": "[Spike] How are duplicate emails being put in the send_email table",
           "status": "Ready for Release",
           "type": "Research Task",
-          "ageDays": 484.7
+          "ageDays": 484.9
         },
         {
           "key": "EMP-660",
           "summary": "[Spike] Review 3 notifications for performance gains",
           "status": "Ready for Release",
           "type": "Research Task",
-          "ageDays": 373.7
+          "ageDays": 373.9
         }
       ],
       "windowDays": 56,
@@ -1330,8 +2513,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:02:02.637Z",
-          "weekEnd": "2026-06-07T06:02:02.637Z",
+          "weekStart": "2026-05-31T10:43:57.992Z",
+          "weekEnd": "2026-06-07T10:43:57.992Z",
           "throughput": 1,
           "cycleTimeAvg": 13,
           "leadTimeAvg": 15.9,
@@ -1343,8 +2526,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:02:02.637Z",
-          "weekEnd": "2026-06-14T06:02:02.637Z",
+          "weekStart": "2026-06-07T10:43:57.992Z",
+          "weekEnd": "2026-06-14T10:43:57.992Z",
           "throughput": 11,
           "cycleTimeAvg": 16.6,
           "leadTimeAvg": 121.9,
@@ -1356,8 +2539,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:02:02.637Z",
-          "weekEnd": "2026-06-21T06:02:02.637Z",
+          "weekStart": "2026-06-14T10:43:57.992Z",
+          "weekEnd": "2026-06-21T10:43:57.992Z",
           "throughput": 10,
           "cycleTimeAvg": 9,
           "leadTimeAvg": 46.2,
@@ -1369,8 +2552,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:02:02.637Z",
-          "weekEnd": "2026-06-28T06:02:02.637Z",
+          "weekStart": "2026-06-21T10:43:57.992Z",
+          "weekEnd": "2026-06-28T10:43:57.992Z",
           "throughput": 17,
           "cycleTimeAvg": 7.1,
           "leadTimeAvg": 45.9,
@@ -1382,8 +2565,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:02:02.637Z",
-          "weekEnd": "2026-07-05T06:02:02.637Z",
+          "weekStart": "2026-06-28T10:43:57.992Z",
+          "weekEnd": "2026-07-05T10:43:57.992Z",
           "throughput": 4,
           "cycleTimeAvg": 4.5,
           "leadTimeAvg": 52,
@@ -1395,8 +2578,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:02:02.637Z",
-          "weekEnd": "2026-07-12T06:02:02.637Z",
+          "weekStart": "2026-07-05T10:43:57.992Z",
+          "weekEnd": "2026-07-12T10:43:57.992Z",
           "throughput": 3,
           "cycleTimeAvg": 3.9,
           "leadTimeAvg": 27.9,
@@ -1408,8 +2591,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:02:02.637Z",
-          "weekEnd": "2026-07-19T06:02:02.637Z",
+          "weekStart": "2026-07-12T10:43:57.992Z",
+          "weekEnd": "2026-07-19T10:43:57.992Z",
           "throughput": 6,
           "cycleTimeAvg": 65.7,
           "leadTimeAvg": 174.9,
@@ -1421,8 +2604,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:02:02.637Z",
-          "weekEnd": "2026-07-26T06:02:02.637Z",
+          "weekStart": "2026-07-19T10:43:57.992Z",
+          "weekEnd": "2026-07-26T10:43:57.992Z",
           "throughput": 6,
           "cycleTimeAvg": 5.6,
           "leadTimeAvg": 35.6,
@@ -2601,7 +3784,7 @@
           "blockedEpicKey": "CORE-194"
         }
       ],
-      "oldestWipAgeDays": 2283.3,
+      "oldestWipAgeDays": 2283.5,
       "agingWipCount": 201,
       "agingWipIssues": [
         {
@@ -2609,35 +3792,35 @@
           "summary": "FE to systematically update Gazelle when provider changes in Online.  Affects clients using EB for Cobra.",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 2283.3
+          "ageDays": 2283.5
         },
         {
           "key": "CORE-166",
           "summary": "Total Compensation Class Update - Move income references to special types",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 1948.6
+          "ageDays": 1948.8
         },
         {
           "key": "CORE-167",
           "summary": "Allow users to change the frequency on the Scheduled Earnings Interface",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 1873.4
+          "ageDays": 1873.6
         },
         {
           "key": "CORE-34",
           "summary": "Support State of CA RROP (DLSE)",
           "status": "To Do",
           "type": "Epic",
-          "ageDays": 1649.3
+          "ageDays": 1649.5
         },
         {
           "key": "CORE-126",
           "summary": "Capture and use a snapshot of employee rates in the batch",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 1530.3
+          "ageDays": 1530.5
         }
       ],
       "windowDays": 56,
@@ -2662,8 +3845,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:02:09.990Z",
-          "weekEnd": "2026-06-07T06:02:09.990Z",
+          "weekStart": "2026-05-31T10:44:03.983Z",
+          "weekEnd": "2026-06-07T10:44:03.983Z",
           "throughput": 13,
           "cycleTimeAvg": 18.8,
           "leadTimeAvg": 45.2,
@@ -2675,8 +3858,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:02:09.990Z",
-          "weekEnd": "2026-06-14T06:02:09.990Z",
+          "weekStart": "2026-06-07T10:44:03.983Z",
+          "weekEnd": "2026-06-14T10:44:03.983Z",
           "throughput": 8,
           "cycleTimeAvg": 26.3,
           "leadTimeAvg": 336.1,
@@ -2688,8 +3871,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:02:09.990Z",
-          "weekEnd": "2026-06-21T06:02:09.990Z",
+          "weekStart": "2026-06-14T10:44:03.983Z",
+          "weekEnd": "2026-06-21T10:44:03.983Z",
           "throughput": 36,
           "cycleTimeAvg": 10.7,
           "leadTimeAvg": 97,
@@ -2701,8 +3884,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:02:09.990Z",
-          "weekEnd": "2026-06-28T06:02:09.990Z",
+          "weekStart": "2026-06-21T10:44:03.983Z",
+          "weekEnd": "2026-06-28T10:44:03.983Z",
           "throughput": 22,
           "cycleTimeAvg": 17.1,
           "leadTimeAvg": 219.9,
@@ -2714,8 +3897,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:02:09.990Z",
-          "weekEnd": "2026-07-05T06:02:09.990Z",
+          "weekStart": "2026-06-28T10:44:03.983Z",
+          "weekEnd": "2026-07-05T10:44:03.983Z",
           "throughput": 14,
           "cycleTimeAvg": 11.4,
           "leadTimeAvg": 455.5,
@@ -2727,8 +3910,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:02:09.990Z",
-          "weekEnd": "2026-07-12T06:02:09.990Z",
+          "weekStart": "2026-07-05T10:44:03.983Z",
+          "weekEnd": "2026-07-12T10:44:03.983Z",
           "throughput": 1,
           "cycleTimeAvg": 0.1,
           "leadTimeAvg": 0.1,
@@ -2740,8 +3923,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:02:09.990Z",
-          "weekEnd": "2026-07-19T06:02:09.990Z",
+          "weekStart": "2026-07-12T10:44:03.983Z",
+          "weekEnd": "2026-07-19T10:44:03.983Z",
           "throughput": 17,
           "cycleTimeAvg": 19.3,
           "leadTimeAvg": 221.9,
@@ -2753,8 +3936,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:02:09.990Z",
-          "weekEnd": "2026-07-26T06:02:09.990Z",
+          "weekStart": "2026-07-19T10:44:03.983Z",
+          "weekEnd": "2026-07-26T10:44:03.983Z",
           "throughput": 15,
           "cycleTimeAvg": 22.7,
           "leadTimeAvg": 58.7,
@@ -3453,7 +4636,7 @@
           "blockedEpicKey": null
         }
       ],
-      "oldestWipAgeDays": 744.6,
+      "oldestWipAgeDays": 744.8,
       "agingWipCount": 110,
       "agingWipIssues": [
         {
@@ -3461,35 +4644,35 @@
           "summary": "Mobile Redesign",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 744.6
+          "ageDays": 744.8
         },
         {
           "key": "MOBILE-198",
           "summary": "APS Tablet App Redesign",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 633.4
+          "ageDays": 633.6
         },
         {
           "key": "MOBILE-211",
           "summary": "Expense Reimbursements - Mobile",
           "status": "In Progress",
           "type": "Project",
-          "ageDays": 619.4
+          "ageDays": 619.6
         },
         {
           "key": "MOBILE-252",
           "summary": "Shift Trading - Mobile",
           "status": "To Do",
           "type": "Project",
-          "ageDays": 600.4
+          "ageDays": 600.6
         },
         {
           "key": "MOBILE-251",
           "summary": "Employee Availability - Mobile",
           "status": "To Do",
           "type": "Project",
-          "ageDays": 600.4
+          "ageDays": 600.6
         }
       ],
       "windowDays": 56,
@@ -3514,8 +4697,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:02:30.701Z",
-          "weekEnd": "2026-06-07T06:02:30.701Z",
+          "weekStart": "2026-05-31T10:44:20.170Z",
+          "weekEnd": "2026-06-07T10:44:20.170Z",
           "throughput": 5,
           "cycleTimeAvg": 22.3,
           "leadTimeAvg": 21.1,
@@ -3527,8 +4710,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:02:30.701Z",
-          "weekEnd": "2026-06-14T06:02:30.701Z",
+          "weekStart": "2026-06-07T10:44:20.170Z",
+          "weekEnd": "2026-06-14T10:44:20.170Z",
           "throughput": 13,
           "cycleTimeAvg": 15.1,
           "leadTimeAvg": 22.1,
@@ -3540,8 +4723,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:02:30.701Z",
-          "weekEnd": "2026-06-21T06:02:30.701Z",
+          "weekStart": "2026-06-14T10:44:20.170Z",
+          "weekEnd": "2026-06-21T10:44:20.170Z",
           "throughput": 10,
           "cycleTimeAvg": 7.6,
           "leadTimeAvg": 13,
@@ -3553,8 +4736,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:02:30.701Z",
-          "weekEnd": "2026-06-28T06:02:30.701Z",
+          "weekStart": "2026-06-21T10:44:20.170Z",
+          "weekEnd": "2026-06-28T10:44:20.170Z",
           "throughput": 4,
           "cycleTimeAvg": 6.9,
           "leadTimeAvg": 19.5,
@@ -3566,8 +4749,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:02:30.701Z",
-          "weekEnd": "2026-07-05T06:02:30.701Z",
+          "weekStart": "2026-06-28T10:44:20.170Z",
+          "weekEnd": "2026-07-05T10:44:20.170Z",
           "throughput": 13,
           "cycleTimeAvg": 8.9,
           "leadTimeAvg": 61.9,
@@ -3579,8 +4762,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:02:30.701Z",
-          "weekEnd": "2026-07-12T06:02:30.701Z",
+          "weekStart": "2026-07-05T10:44:20.170Z",
+          "weekEnd": "2026-07-12T10:44:20.170Z",
           "throughput": 8,
           "cycleTimeAvg": 12.5,
           "leadTimeAvg": 49.1,
@@ -3592,8 +4775,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:02:30.701Z",
-          "weekEnd": "2026-07-19T06:02:30.701Z",
+          "weekStart": "2026-07-12T10:44:20.170Z",
+          "weekEnd": "2026-07-19T10:44:20.170Z",
           "throughput": 11,
           "cycleTimeAvg": 13.1,
           "leadTimeAvg": 33.9,
@@ -3605,8 +4788,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:02:30.701Z",
-          "weekEnd": "2026-07-26T06:02:30.701Z",
+          "weekStart": "2026-07-19T10:44:20.170Z",
+          "weekEnd": "2026-07-26T10:44:20.170Z",
           "throughput": 24,
           "cycleTimeAvg": 10.2,
           "leadTimeAvg": 22.7,
@@ -4155,7 +5338,7 @@
           "blockedEpicKey": "CORE-539"
         }
       ],
-      "oldestWipAgeDays": 2656.4,
+      "oldestWipAgeDays": 2656.6,
       "agingWipCount": 165,
       "agingWipIssues": [
         {
@@ -4163,35 +5346,35 @@
           "summary": "Add ability to setup an employee on multiple withholding states",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 2656.4
+          "ageDays": 2656.6
         },
         {
           "key": "BOA-127",
           "summary": "Add multiple withholding states to tax calculations",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 2656.4
+          "ageDays": 2656.6
         },
         {
           "key": "BOA-105",
           "summary": "Custom Garnishment Types",
           "status": "Backlog",
           "type": "Story",
-          "ageDays": 2515.4
+          "ageDays": 2515.6
         },
         {
           "key": "BOA-124",
           "summary": "OH SUTA addenda record layout",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 2356.5
+          "ageDays": 2356.7
         },
         {
           "key": "BOA-126",
           "summary": "SSO - Add config file option to validate login credentials with domain rather than the database",
           "status": "Backlog",
           "type": "Dev Task",
-          "ageDays": 2333.6
+          "ageDays": 2333.8
         }
       ],
       "windowDays": 56,
@@ -4216,8 +5399,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:02:43.919Z",
-          "weekEnd": "2026-06-07T06:02:43.919Z",
+          "weekStart": "2026-05-31T10:44:29.942Z",
+          "weekEnd": "2026-06-07T10:44:29.942Z",
           "throughput": 17,
           "cycleTimeAvg": 62.9,
           "leadTimeAvg": 61.5,
@@ -4229,8 +5412,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:02:43.919Z",
-          "weekEnd": "2026-06-14T06:02:43.919Z",
+          "weekStart": "2026-06-07T10:44:29.942Z",
+          "weekEnd": "2026-06-14T10:44:29.942Z",
           "throughput": 7,
           "cycleTimeAvg": 14.9,
           "leadTimeAvg": 15.9,
@@ -4242,8 +5425,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:02:43.919Z",
-          "weekEnd": "2026-06-21T06:02:43.919Z",
+          "weekStart": "2026-06-14T10:44:29.942Z",
+          "weekEnd": "2026-06-21T10:44:29.942Z",
           "throughput": 19,
           "cycleTimeAvg": 8.9,
           "leadTimeAvg": 38.4,
@@ -4255,8 +5438,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:02:43.919Z",
-          "weekEnd": "2026-06-28T06:02:43.919Z",
+          "weekStart": "2026-06-21T10:44:29.942Z",
+          "weekEnd": "2026-06-28T10:44:29.942Z",
           "throughput": 3,
           "cycleTimeAvg": 4.9,
           "leadTimeAvg": 7.6,
@@ -4268,8 +5451,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:02:43.919Z",
-          "weekEnd": "2026-07-05T06:02:43.919Z",
+          "weekStart": "2026-06-28T10:44:29.942Z",
+          "weekEnd": "2026-07-05T10:44:29.942Z",
           "throughput": 10,
           "cycleTimeAvg": 16.2,
           "leadTimeAvg": 50.4,
@@ -4281,8 +5464,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:02:43.919Z",
-          "weekEnd": "2026-07-12T06:02:43.919Z",
+          "weekStart": "2026-07-05T10:44:29.942Z",
+          "weekEnd": "2026-07-12T10:44:29.942Z",
           "throughput": 6,
           "cycleTimeAvg": 197.9,
           "leadTimeAvg": 476.1,
@@ -4294,8 +5477,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:02:43.919Z",
-          "weekEnd": "2026-07-19T06:02:43.919Z",
+          "weekStart": "2026-07-12T10:44:29.942Z",
+          "weekEnd": "2026-07-19T10:44:29.942Z",
           "throughput": 11,
           "cycleTimeAvg": 11.6,
           "leadTimeAvg": 140.8,
@@ -4307,8 +5490,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:02:43.919Z",
-          "weekEnd": "2026-07-26T06:02:43.919Z",
+          "weekStart": "2026-07-19T10:44:29.942Z",
+          "weekEnd": "2026-07-26T10:44:29.942Z",
           "throughput": 2,
           "cycleTimeAvg": 5,
           "leadTimeAvg": 5.4,
@@ -4739,7 +5922,7 @@
           "blockedEpicKey": "EXP-881"
         }
       ],
-      "oldestWipAgeDays": 1132.5,
+      "oldestWipAgeDays": 1132.7,
       "agingWipCount": 75,
       "agingWipIssues": [
         {
@@ -4747,35 +5930,35 @@
           "summary": "Workforce Planning - 3rd Party Position Pay Integration",
           "status": "To Do",
           "type": "Epic",
-          "ageDays": 1132.5
+          "ageDays": 1132.7
         },
         {
           "key": "EXP-203",
           "summary": "Holiday Rule Step 7 restrictions can be bypassed by user",
           "status": "Ready for Release",
           "type": "Bug",
-          "ageDays": 933.1
+          "ageDays": 933.3
         },
         {
           "key": "EXP-264",
           "summary": "Performance Review goals disappear when completing a review",
           "status": "Ready for Release",
           "type": "Research Task",
-          "ageDays": 878.4
+          "ageDays": 878.6
         },
         {
           "key": "EXP-354",
           "summary": "Workforce Planning",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 752.4
+          "ageDays": 752.6
         },
         {
           "key": "EXP-359",
           "summary": "WFP - 3rd Party Pay Data",
           "status": "To Do",
           "type": "Project",
-          "ageDays": 744.3
+          "ageDays": 744.5
         }
       ],
       "windowDays": 56,
@@ -4800,8 +5983,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:02:55.433Z",
-          "weekEnd": "2026-06-07T06:02:55.433Z",
+          "weekStart": "2026-05-31T10:44:41.019Z",
+          "weekEnd": "2026-06-07T10:44:41.019Z",
           "throughput": 11,
           "cycleTimeAvg": 14.2,
           "leadTimeAvg": 41.8,
@@ -4813,8 +5996,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:02:55.433Z",
-          "weekEnd": "2026-06-14T06:02:55.433Z",
+          "weekStart": "2026-06-07T10:44:41.019Z",
+          "weekEnd": "2026-06-14T10:44:41.019Z",
           "throughput": 7,
           "cycleTimeAvg": 16.5,
           "leadTimeAvg": 38.5,
@@ -4826,8 +6009,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:02:55.433Z",
-          "weekEnd": "2026-06-21T06:02:55.433Z",
+          "weekStart": "2026-06-14T10:44:41.019Z",
+          "weekEnd": "2026-06-21T10:44:41.019Z",
           "throughput": 4,
           "cycleTimeAvg": 12.9,
           "leadTimeAvg": 16.7,
@@ -4839,8 +6022,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:02:55.433Z",
-          "weekEnd": "2026-06-28T06:02:55.433Z",
+          "weekStart": "2026-06-21T10:44:41.019Z",
+          "weekEnd": "2026-06-28T10:44:41.019Z",
           "throughput": 5,
           "cycleTimeAvg": 8.2,
           "leadTimeAvg": 26,
@@ -4852,8 +6035,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:02:55.433Z",
-          "weekEnd": "2026-07-05T06:02:55.433Z",
+          "weekStart": "2026-06-28T10:44:41.019Z",
+          "weekEnd": "2026-07-05T10:44:41.019Z",
           "throughput": 8,
           "cycleTimeAvg": 17.3,
           "leadTimeAvg": 108.7,
@@ -4865,8 +6048,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:02:55.433Z",
-          "weekEnd": "2026-07-12T06:02:55.433Z",
+          "weekStart": "2026-07-05T10:44:41.019Z",
+          "weekEnd": "2026-07-12T10:44:41.019Z",
           "throughput": 11,
           "cycleTimeAvg": 14.5,
           "leadTimeAvg": 36.5,
@@ -4878,8 +6061,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:02:55.433Z",
-          "weekEnd": "2026-07-19T06:02:55.433Z",
+          "weekStart": "2026-07-12T10:44:41.019Z",
+          "weekEnd": "2026-07-19T10:44:41.019Z",
           "throughput": 7,
           "cycleTimeAvg": 15.4,
           "leadTimeAvg": 25,
@@ -4891,8 +6074,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:02:55.433Z",
-          "weekEnd": "2026-07-26T06:02:55.433Z",
+          "weekStart": "2026-07-19T10:44:41.019Z",
+          "weekEnd": "2026-07-26T10:44:41.019Z",
           "throughput": 4,
           "cycleTimeAvg": 15.1,
           "leadTimeAvg": 44.8,
@@ -5163,7 +6346,7 @@
           "blockedEpicKey": "HR-241"
         }
       ],
-      "oldestWipAgeDays": 712.7,
+      "oldestWipAgeDays": 712.9,
       "agingWipCount": 57,
       "agingWipIssues": [
         {
@@ -5171,35 +6354,35 @@
           "summary": "Benefits Admin Enhancements",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 712.7
+          "ageDays": 712.9
         },
         {
           "key": "HR-88",
           "summary": "Improve the benefits management module's performance",
           "status": "To Do",
           "type": "Epic",
-          "ageDays": 633.5
+          "ageDays": 633.7
         },
         {
           "key": "HR-107",
           "summary": "Benefits - Performance Improvement",
           "status": "In Progress",
           "type": "Project",
-          "ageDays": 610.5
+          "ageDays": 610.7
         },
         {
           "key": "HR-106",
           "summary": "Performance Management Revamp",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 610.5
+          "ageDays": 610.7
         },
         {
           "key": "HR-105",
           "summary": "Benefits Admin - 2026",
           "status": "In Progress",
           "type": "Initiative",
-          "ageDays": 610.5
+          "ageDays": 610.7
         }
       ],
       "windowDays": 56,
@@ -5224,8 +6407,8 @@
       "weekly": [
         {
           "label": "May 31–Jun 7",
-          "weekStart": "2026-05-31T06:03:04.672Z",
-          "weekEnd": "2026-06-07T06:03:04.672Z",
+          "weekStart": "2026-05-31T10:44:49.958Z",
+          "weekEnd": "2026-06-07T10:44:49.958Z",
           "throughput": 5,
           "cycleTimeAvg": 16.9,
           "leadTimeAvg": 203.9,
@@ -5237,8 +6420,8 @@
         },
         {
           "label": "Jun 7–Jun 14",
-          "weekStart": "2026-06-07T06:03:04.672Z",
-          "weekEnd": "2026-06-14T06:03:04.672Z",
+          "weekStart": "2026-06-07T10:44:49.958Z",
+          "weekEnd": "2026-06-14T10:44:49.958Z",
           "throughput": 2,
           "cycleTimeAvg": 6.9,
           "leadTimeAvg": 16.7,
@@ -5250,8 +6433,8 @@
         },
         {
           "label": "Jun 14–Jun 21",
-          "weekStart": "2026-06-14T06:03:04.672Z",
-          "weekEnd": "2026-06-21T06:03:04.672Z",
+          "weekStart": "2026-06-14T10:44:49.958Z",
+          "weekEnd": "2026-06-21T10:44:49.958Z",
           "throughput": 4,
           "cycleTimeAvg": 14.9,
           "leadTimeAvg": 30.8,
@@ -5263,8 +6446,8 @@
         },
         {
           "label": "Jun 21–Jun 28",
-          "weekStart": "2026-06-21T06:03:04.672Z",
-          "weekEnd": "2026-06-28T06:03:04.672Z",
+          "weekStart": "2026-06-21T10:44:49.958Z",
+          "weekEnd": "2026-06-28T10:44:49.958Z",
           "throughput": 8,
           "cycleTimeAvg": 18.6,
           "leadTimeAvg": 125,
@@ -5276,8 +6459,8 @@
         },
         {
           "label": "Jun 28–Jul 5",
-          "weekStart": "2026-06-28T06:03:04.672Z",
-          "weekEnd": "2026-07-05T06:03:04.672Z",
+          "weekStart": "2026-06-28T10:44:49.958Z",
+          "weekEnd": "2026-07-05T10:44:49.958Z",
           "throughput": 4,
           "cycleTimeAvg": 22.3,
           "leadTimeAvg": 37.2,
@@ -5289,8 +6472,8 @@
         },
         {
           "label": "Jul 5–Jul 12",
-          "weekStart": "2026-07-05T06:03:04.672Z",
-          "weekEnd": "2026-07-12T06:03:04.672Z",
+          "weekStart": "2026-07-05T10:44:49.958Z",
+          "weekEnd": "2026-07-12T10:44:49.958Z",
           "throughput": 4,
           "cycleTimeAvg": 11.2,
           "leadTimeAvg": 24.7,
@@ -5302,8 +6485,8 @@
         },
         {
           "label": "Jul 12–Jul 19",
-          "weekStart": "2026-07-12T06:03:04.672Z",
-          "weekEnd": "2026-07-19T06:03:04.672Z",
+          "weekStart": "2026-07-12T10:44:49.958Z",
+          "weekEnd": "2026-07-19T10:44:49.958Z",
           "throughput": 2,
           "cycleTimeAvg": 23.4,
           "leadTimeAvg": 88.8,
@@ -5315,8 +6498,8 @@
         },
         {
           "label": "Jul 19–Jul 26",
-          "weekStart": "2026-07-19T06:03:04.672Z",
-          "weekEnd": "2026-07-26T06:03:04.672Z",
+          "weekStart": "2026-07-19T10:44:49.958Z",
+          "weekEnd": "2026-07-26T10:44:49.958Z",
           "throughput": 3,
           "cycleTimeAvg": 19.3,
           "leadTimeAvg": 36.2,
